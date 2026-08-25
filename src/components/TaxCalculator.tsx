@@ -66,7 +66,7 @@ export const TaxCalculator: React.FC<TaxCalculatorProps> = ({ onOpenQuoteModal }
   const result = calculateTaxes();
 
   return (
-    <section id="simulador" className="py-20 lg:py-28 bg-white relative">
+    <section id="simulador" className="py-20 lg:py-28 bg-transparent relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}

@@ -40,7 +40,7 @@ export const Services: React.FC<ServicesProps> = ({ onOpenQuoteModal }) => {
   };
 
   return (
-    <section id="servicos" className="py-20 lg:py-28 bg-white relative">
+    <section id="servicos" className="py-20 lg:py-28 bg-transparent relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}

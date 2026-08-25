@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
+import { AuroraBackground } from './components/AuroraBackground';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { About } from './components/About';
 import { Services } from './components/Services';
 import { Differentials } from './components/Differentials';
 import { TaxCalculator } from './components/TaxCalculator';
-import { Process } from './components/Process';
 import { CTA } from './components/CTA';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
@@ -22,7 +22,10 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-white text-[#202124] flex flex-col font-sans selection:bg-[#0B63CE] selection:text-white">
+    <div className="min-h-screen relative bg-transparent text-[#202124] flex flex-col font-sans selection:bg-[#0B63CE] selection:text-white">
+      {/* Living Ambient Aurora Background */}
+      <AuroraBackground />
+
       {/* Navigation Bar */}
       <Navbar onOpenQuoteModal={handleOpenQuoteModal} />
 
@@ -42,9 +45,6 @@ export default function App() {
 
         {/* Interactive Tax Optimization Simulator */}
         <TaxCalculator onOpenQuoteModal={handleOpenQuoteModal} />
-
-        {/* Step-by-step Process Timeline */}
-        <Process onOpenQuoteModal={handleOpenQuoteModal} />
 
         {/* Call To Action */}
         <CTA onOpenQuoteModal={handleOpenQuoteModal} />

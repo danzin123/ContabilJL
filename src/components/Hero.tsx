@@ -1,7 +1,8 @@
 import React from 'react';
 import { Hero3DCanvas } from './Hero3DCanvas';
 import { COMPANY_INFO } from '../data/content';
-import { ArrowRight, MessageCircle, ShieldCheck, MapPin, Building, CheckCircle2 } from 'lucide-react';
+import whatsappImg from '../assets/whatsapp.png';
+import { ArrowRight, MapPin, CheckCircle2 } from 'lucide-react';
 
 interface HeroProps {
   onOpenQuoteModal: (serviceName?: string) => void;
@@ -9,11 +10,7 @@ interface HeroProps {
 
 export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
   return (
-    <section id="inicio" className="relative pt-28 sm:pt-32 lg:pt-36 pb-16 lg:pb-24 bg-white overflow-hidden min-h-[90vh] flex items-center">
-      {/* Background subtle ambient geometry */}
-      <div className="absolute top-0 right-0 w-1/2 h-full bg-slate-50/50 rounded-l-full blur-3xl -z-10 pointer-events-none" />
-      <div className="absolute top-1/4 left-10 w-64 h-64 bg-[#0B63CE]/5 rounded-full blur-3xl -z-10 pointer-events-none" />
-
+    <section id="inicio" className="relative pt-28 sm:pt-32 lg:pt-36 pb-16 lg:pb-24 bg-transparent overflow-hidden min-h-[90vh] flex items-center">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           
@@ -59,13 +56,13 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-3 px-7 py-4 bg-slate-100 hover:bg-slate-200/80 text-slate-800 font-bold text-base rounded-2xl transition-all border border-slate-200 hover:border-slate-300"
               >
-                <MessageCircle className="w-5 h-5 text-[#25D366]" />
+                <img src={whatsappImg} alt="WhatsApp" className="w-5 h-5 object-contain" />
                 <span>Falar no WhatsApp</span>
               </a>
             </div>
 
             {/* Trust Highlights */}
-            <div className="pt-6 border-t border-slate-100 grid grid-cols-2 sm:grid-cols-3 gap-4">
+            <div className="pt-6 border-t border-slate-100 flex flex-wrap items-center gap-6">
               <div className="flex items-center gap-2.5">
                 <CheckCircle2 className="w-4 h-4 text-[#0B63CE] flex-shrink-0" />
                 <span className="text-xs font-semibold text-slate-700">Atendimento Humanizado</span>
@@ -73,10 +70,6 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
               <div className="flex items-center gap-2.5">
                 <CheckCircle2 className="w-4 h-4 text-[#0B63CE] flex-shrink-0" />
                 <span className="text-xs font-semibold text-slate-700">+500 Clientes Atendidos</span>
-              </div>
-              <div className="flex items-center gap-2.5 col-span-2 sm:col-span-1">
-                <CheckCircle2 className="w-4 h-4 text-[#0B63CE] flex-shrink-0" />
-                <span className="text-xs font-semibold text-slate-700">Conformidade Total SPED</span>
               </div>
             </div>
 

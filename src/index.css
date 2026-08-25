@@ -81,3 +81,67 @@
   animation: floatSoft 6s ease-in-out infinite;
 }
 
+/* Aurora Fluid Keyframe Animations */
+@keyframes aurora-1 {
+  0%, 100% {
+    transform: translate3d(0px, 0px, 0) scale(1) rotate(0deg);
+  }
+  33% {
+    transform: translate3d(70px, -50px, 0) scale(1.18) rotate(12deg);
+  }
+  66% {
+    transform: translate3d(-40px, 35px, 0) scale(0.92) rotate(-8deg);
+  }
+}
+
+@keyframes aurora-2 {
+  0%, 100% {
+    transform: translate3d(0px, 0px, 0) scale(1) rotate(0deg);
+  }
+  33% {
+    transform: translate3d(-60px, 50px, 0) scale(1.22) rotate(-16deg);
+  }
+  66% {
+    transform: translate3d(50px, -30px, 0) scale(0.88) rotate(14deg);
+  }
+}
+
+@keyframes aurora-3 {
+  0%, 100% {
+    transform: translate3d(0px, 0px, 0) scale(1) rotate(0deg);
+  }
+  50% {
+    transform: translate3d(55px, 60px, 0) scale(1.12) rotate(24deg);
+  }
+}
+
+@keyframes aurora-4 {
+  0%, 100% {
+    transform: translate3d(0px, 0px, 0) scale(1.06);
+  }
+  50% {
+    transform: translate3d(-65px, -45px, 0) scale(0.94);
+  }
+}
+
+.animate-aurora-1 {
+  animation: aurora-1 18s ease-in-out infinite;
+  will-change: transform;
+}
+
+.animate-aurora-2 {
+  animation: aurora-2 24s ease-in-out infinite;
+  will-change: transform;
+}
+
+.animate-aurora-3 {
+  animation: aurora-3 28s ease-in-out infinite;
+  will-change: transform;
+}
+
+.animate-aurora-4 {
+  animation: aurora-4 22s ease-in-out infinite;
+  will-change: transform;
+}
+
+

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { COMPANY_INFO } from '../data/content';
-import { Phone, MessageCircle, Menu, X, ArrowRight, ShieldCheck, Building2 } from 'lucide-react';
+import logoImg from '../assets/logo.png';
+import whatsappImg from '../assets/whatsapp.png';
+import { Phone, Menu, X, ArrowRight, ShieldCheck, Building2 } from 'lucide-react';
 
 interface NavbarProps {
   onOpenQuoteModal: (serviceName?: string) => void;
@@ -29,7 +31,6 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
     { name: 'Serviços', href: '#servicos' },
     { name: 'Diferenciais', href: '#diferenciais' },
     { name: 'Simulador', href: '#simulador' },
-    { name: 'Processo', href: '#processo' },
     { name: 'Contato', href: '#contato' },
   ];
 
@@ -45,8 +46,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? 'bg-white/95 backdrop-blur-md shadow-sm border-b border-slate-100 py-3.5'
-          : 'bg-white/70 backdrop-blur-xs py-5'
+          ? 'bg-white/90 backdrop-blur-md shadow-xs border-b border-slate-200/60 py-3.5'
+          : 'bg-transparent py-5'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -60,9 +61,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
             }}
             className="flex items-center gap-3 group focus:outline-none"
           >
-            <div className="w-10 h-10 rounded-xl bg-[#0B63CE] text-white flex items-center justify-center font-extrabold text-lg shadow-md shadow-[#0B63CE]/20 transition-transform duration-300 group-hover:scale-105">
-              JL
-            </div>
+            <img
+              src={logoImg}
+              alt="Escritório Contábil JL Oliveira"
+              className="h-10 sm:h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+            />
             <div className="flex flex-col">
               <span className="font-extrabold text-slate-900 text-lg leading-tight tracking-tight group-hover:text-[#0B63CE] transition-colors">
                 JL Oliveira
@@ -98,7 +101,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-4 py-2.5 text-xs font-bold text-slate-700 hover:text-[#0B63CE] bg-slate-100 hover:bg-slate-200/70 rounded-xl transition-all"
             >
-              <MessageCircle className="w-4 h-4 text-[#25D366]" />
+              <img src={whatsappImg} alt="WhatsApp" className="w-4 h-4 object-contain" />
               <span>WhatsApp</span>
             </a>
 
@@ -120,7 +123,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
               className="p-2 text-[#25D366] bg-green-50 hover:bg-green-100 rounded-lg transition-colors"
               aria-label="WhatsApp"
             >
-              <MessageCircle className="w-5 h-5" />
+              <img src={whatsappImg} alt="WhatsApp" className="w-5 h-5 object-contain" />
             </a>
 
             <button
@@ -171,7 +174,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
               rel="noopener noreferrer"
               className="w-full flex items-center justify-center gap-2 py-3 px-4 bg-slate-100 text-slate-800 font-bold text-sm rounded-xl"
             >
-              <MessageCircle className="w-4 h-4 text-[#25D366]" />
+              <img src={whatsappImg} alt="WhatsApp" className="w-4 h-4 object-contain" />
               <span>Falar no WhatsApp: {COMPANY_INFO.whatsapp}</span>
             </a>
           </div>

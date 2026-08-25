@@ -1,6 +1,8 @@
 import React from 'react';
 import { COMPANY_INFO } from '../data/content';
-import { MapPin, Phone, MessageCircle, Mail, ArrowUp, Instagram, Linkedin, Facebook } from 'lucide-react';
+import logoImg from '../assets/logo.png';
+import whatsappImg from '../assets/whatsapp.png';
+import { MapPin, Phone, Mail, ArrowUp, Instagram, Linkedin, Facebook } from 'lucide-react';
 
 export const Footer: React.FC = () => {
   const scrollToTop = () => {
@@ -17,8 +19,12 @@ export const Footer: React.FC = () => {
           {/* Brand Col */}
           <div className="lg:col-span-4 space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-xl bg-[#0B63CE] text-white flex items-center justify-center font-extrabold text-lg shadow-md">
-                JL
+              <div className="p-1 bg-white rounded-xl shadow-md flex items-center justify-center">
+                <img
+                  src={logoImg}
+                  alt="Escritório Contábil JL Oliveira"
+                  className="h-10 w-auto object-contain"
+                />
               </div>
               <div className="flex flex-col">
                 <span className="font-extrabold text-white text-lg tracking-tight">
@@ -37,7 +43,7 @@ export const Footer: React.FC = () => {
             {/* Social Icons */}
             <div className="flex items-center gap-3 pt-2">
               <a
-                href="https://instagram.com"
+                href={COMPANY_INFO.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2.5 rounded-xl bg-slate-800 text-slate-300 hover:text-white hover:bg-[#0B63CE] transition-colors"
@@ -72,7 +78,7 @@ export const Footer: React.FC = () => {
               Navegação Rápida
             </h4>
             <ul className="space-y-2 text-xs sm:text-sm">
-              {['Início', 'Sobre', 'Serviços', 'Diferenciais', 'Simulador', 'Processo', 'Contato'].map((item) => (
+              {['Início', 'Sobre', 'Serviços', 'Diferenciais', 'Simulador', 'Contato'].map((item) => (
                 <li key={item}>
                   <a
                     href={`#${item.toLowerCase()}`}
@@ -120,7 +126,7 @@ export const Footer: React.FC = () => {
               </div>
 
               <div className="flex items-center gap-2">
-                <MessageCircle className="w-4 h-4 text-[#25D366] flex-shrink-0" />
+                <img src={whatsappImg} alt="WhatsApp" className="w-4 h-4 object-contain" />
                 <a href={`https://wa.me/${COMPANY_INFO.whatsappRaw}`} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">
                   {COMPANY_INFO.whatsapp}
                 </a>

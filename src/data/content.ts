@@ -14,7 +14,9 @@ export const COMPANY_INFO = {
   whatsapp: '(11) 99899-1422',
   whatsappRaw: '5511998991422',
   email: 'contato@jloliveiracontabil.com.br',
-  businessHours: 'Segunda a Sexta: 08h00 às 18h00',
+  instagram: 'https://www.instagram.com/contabil_jloliveira/',
+  instagramHandle: '@contabil_jloliveira',
+  businessHours: 'Segunda a Sexta: 08h00 às 17:30',
   mapsEmbedUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3671.391605273752!2d-46.54341992383841!3d-22.954203879222384!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94cec980ee915d31%3A0xb655ca56beea02e8!2sRua%20Nicolino%20Nacaratti%2C%20416%20-%20Bragan%C3%A7a%20Paulista%20-%20SP!5e0!3m2!1spt-BR!2sbr!4v1700000000000!5m2!1spt-BR!2sbr'
 };
 
@@ -193,8 +195,8 @@ export const DIFFERENTIALS: Differential[] = [
   },
   {
     id: 'experiencia',
-    metric: '+10',
-    numberValue: 10,
+    metric: '+40',
+    numberValue: 40,
     suffix: ' Anos',
     label: 'Anos de Tradição',
     description: 'Histórico consolidado em Bragança Paulista e região com sólida reputação técnica e ética.',

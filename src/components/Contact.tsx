@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { COMPANY_INFO } from '../data/content';
 import { ContactFormData } from '../types';
+import whatsappImg from '../assets/whatsapp.png';
 import confetti from 'canvas-confetti';
-import { MapPin, Phone, MessageCircle, Mail, Clock, Send, CheckCircle2, Navigation, AlertCircle } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, Send, CheckCircle2, Navigation, AlertCircle, Instagram } from 'lucide-react';
 
 export const Contact: React.FC = () => {
   const [formData, setFormData] = useState<ContactFormData>({
@@ -59,7 +60,7 @@ export const Contact: React.FC = () => {
   };
 
   return (
-    <section id="contato" className="py-20 lg:py-28 bg-white relative">
+    <section id="contato" className="py-20 lg:py-28 bg-transparent relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
@@ -122,9 +123,11 @@ export const Contact: React.FC = () => {
 
               {/* WhatsApp Card */}
               <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 flex items-start gap-4">
-                <div className="p-3 bg-[#25D366] text-white rounded-xl flex-shrink-0 shadow-sm">
-                  <MessageCircle className="w-5 h-5" />
-                </div>
+                <img
+                  src={whatsappImg}
+                  alt="WhatsApp"
+                  className="w-11 h-11 object-contain flex-shrink-0"
+                />
                 <div>
                   <h4 className="font-bold text-slate-900 text-sm">WhatsApp</h4>
                   <a
@@ -136,6 +139,25 @@ export const Contact: React.FC = () => {
                     {COMPANY_INFO.whatsapp}
                   </a>
                   <span className="text-[11px] text-slate-500 block">Atendimento rápido em horário comercial</span>
+                </div>
+              </div>
+
+              {/* Instagram Card */}
+              <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 flex items-start gap-4">
+                <div className="p-3 bg-gradient-to-tr from-[#F58529] via-[#DD2A7B] to-[#8134AF] text-white rounded-xl flex-shrink-0 shadow-sm">
+                  <Instagram className="w-5 h-5" />
+                </div>
+                <div>
+                  <h4 className="font-bold text-slate-900 text-sm">Instagram</h4>
+                  <a
+                    href={COMPANY_INFO.instagram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-slate-800 font-semibold text-sm hover:text-[#DD2A7B] mt-0.5 block"
+                  >
+                    {COMPANY_INFO.instagramHandle}
+                  </a>
+                  <span className="text-[11px] text-slate-500 block">Siga-nos para dicas e atualizações fiscais</span>
                 </div>
               </div>
 
@@ -185,7 +207,7 @@ export const Contact: React.FC = () => {
                     onClick={handleSendToWhatsApp}
                     className="w-full sm:w-auto px-6 py-3.5 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-xs rounded-xl shadow-md transition-all flex items-center justify-center gap-2"
                   >
-                    <MessageCircle className="w-4 h-4" />
+                    <img src={whatsappImg} alt="WhatsApp" className="w-4 h-4 object-contain" />
                     <span>Enviar Cópia via WhatsApp Agora</span>
                   </button>
 

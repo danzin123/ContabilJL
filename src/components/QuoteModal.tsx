@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { COMPANY_INFO } from '../data/content';
+import logoImg from '../assets/logo.png';
 import confetti from 'canvas-confetti';
 import { X, Send, CheckCircle2, MessageCircle, AlertCircle } from 'lucide-react';
 
@@ -98,13 +99,16 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({ isOpen, onClose, prefill
         ) : (
           <form onSubmit={handleSubmit} className="space-y-4">
             
-            <div className="space-y-1 pr-6">
-              <span className="text-xs font-bold uppercase tracking-wider text-[#0B63CE]">
-                Escritório Contábil JL Oliveira
-              </span>
-              <h3 className="text-xl font-extrabold text-slate-900">
-                Solicite uma Proposta Contábil
-              </h3>
+            <div className="flex items-center gap-3 pr-6">
+              <img src={logoImg} alt="JL Oliveira" className="h-10 w-auto object-contain flex-shrink-0" />
+              <div className="space-y-0.5">
+                <span className="text-xs font-bold uppercase tracking-wider text-[#0B63CE] block">
+                  Escritório Contábil JL Oliveira
+                </span>
+                <h3 className="text-xl font-extrabold text-slate-900 leading-tight">
+                  Solicite uma Proposta Contábil
+                </h3>
+              </div>
             </div>
 
             {errorMessage && (
