@@ -137,48 +137,58 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
         </div>
       </div>
 
-      {/* Mobile Drawer Menu */}
+      {/* Mobile Drawer Menu & Overlay */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-white/98 backdrop-blur-xl border-b border-slate-200 px-4 pt-3 pb-6 shadow-xl animate-in slide-in-from-top duration-200">
-          <nav className="flex flex-col gap-1 mb-5">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleNavClick(link.href);
+        <>
+          {/* Backdrop overlay */}
+          <div
+            className="fixed inset-0 bg-slate-900/40 backdrop-blur-xs z-40 lg:hidden"
+            onClick={() => setMobileMenuOpen(false)}
+            aria-hidden="true"
+          />
+
+          {/* Drawer */}
+          <div className="relative z-50 lg:hidden bg-white/98 backdrop-blur-xl border-b border-slate-200 px-4 pt-3 pb-6 shadow-2xl animate-in slide-in-from-top duration-200">
+            <nav className="flex flex-col gap-1 mb-5">
+              {navLinks.map((link) => (
+                <a
+                  key={link.name}
+                  href={link.href}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleNavClick(link.href);
+                  }}
+                  className="px-4 py-3 text-base font-semibold text-slate-800 hover:text-[#0B63CE] hover:bg-slate-50 rounded-xl transition-colors active:bg-slate-100"
+                >
+                  {link.name}
+                </a>
+              ))}
+            </nav>
+
+            <div className="flex flex-col gap-3 pt-3 border-t border-slate-100">
+              <button
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  onOpenQuoteModal();
                 }}
-                className="px-4 py-3 text-base font-semibold text-slate-800 hover:text-[#0B63CE] hover:bg-slate-50 rounded-xl transition-colors"
+                className="w-full flex items-center justify-center gap-2 py-3.5 px-4 bg-[#0B63CE] text-white font-bold text-sm rounded-xl shadow-md shadow-[#0B63CE]/20 active:scale-98 transition-transform"
               >
-                {link.name}
+                <span>Solicitar Orçamento</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+
+              <a
+                href={`https://wa.me/${COMPANY_INFO.whatsappRaw}?text=${encodeURIComponent('Olá! Vim pelo site e gostaria de atendimento do Escritório Contábil JL Oliveira.')}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full flex items-center justify-center gap-2 py-3 px-4 bg-slate-100 text-slate-800 font-bold text-sm rounded-xl active:bg-slate-200 transition-colors"
+              >
+                <img src={whatsappImg} alt="WhatsApp" className="w-4 h-4 object-contain" />
+                <span>WhatsApp: {COMPANY_INFO.whatsapp}</span>
               </a>
-            ))}
-          </nav>
-
-          <div className="flex flex-col gap-3 pt-3 border-t border-slate-100">
-            <button
-              onClick={() => {
-                setMobileMenuOpen(false);
-                onOpenQuoteModal();
-              }}
-              className="w-full flex items-center justify-center gap-2 py-3.5 px-4 bg-[#0B63CE] text-white font-bold text-sm rounded-xl shadow-md shadow-[#0B63CE]/20"
-            >
-              <span>Solicitar Orçamento</span>
-              <ArrowRight className="w-4 h-4" />
-            </button>
-
-            <a
-              href={`https://wa.me/${COMPANY_INFO.whatsappRaw}?text=${encodeURIComponent('Olá! Vim pelo site e gostaria de atendimento do Escritório Contábil JL Oliveira.')}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full flex items-center justify-center gap-2 py-3 px-4 bg-slate-100 text-slate-800 font-bold text-sm rounded-xl"
-            >
-              <img src={whatsappImg} alt="WhatsApp" className="w-4 h-4 object-contain" />
-              <span>Falar no WhatsApp: {COMPANY_INFO.whatsapp}</span>
-            </a>
+            </div>
           </div>
-        </div>
+        </>
       )}
     </header>
   );

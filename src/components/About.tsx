@@ -17,18 +17,18 @@ export const About: React.FC = () => {
   };
 
   return (
-    <section id="sobre" className="py-20 lg:py-28 bg-transparent relative overflow-hidden">
+    <section id="sobre" className="py-14 sm:py-20 lg:py-28 bg-transparent relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-16 space-y-2.5 sm:space-y-3">
           <span className="text-xs font-bold uppercase tracking-widest text-[#0B63CE] bg-[#0B63CE]/10 px-3.5 py-1.5 rounded-full">
             Sobre o Escritório
           </span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight leading-snug">
             Tradição, Tecnologia e Segurança para o seu Negócio
           </h2>
-          <p className="text-slate-600 text-base sm:text-lg">
+          <p className="text-slate-600 text-sm sm:text-lg">
             Conheça a história e os pilares do Escritório Contábil JL Oliveira em Bragança Paulista - SP.
           </p>
         </div>

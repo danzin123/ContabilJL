@@ -166,8 +166,8 @@ export const Growth3DGraphic: React.FC = () => {
   }, []);
 
   return (
-    <div className="relative w-full h-[360px] sm:h-[420px] flex items-center justify-center">
-      <div ref={mountRef} className="w-full h-full cursor-grab active:cursor-grabbing" />
+    <div className="relative w-full h-[260px] xs:h-[300px] sm:h-[380px] lg:h-[420px] flex items-center justify-center select-none touch-pan-y">
+      <div ref={mountRef} className="w-full h-full cursor-grab active:cursor-grabbing touch-pan-y" />
     </div>
   );
 };

@@ -66,40 +66,40 @@ export const TaxCalculator: React.FC<TaxCalculatorProps> = ({ onOpenQuoteModal }
   const result = calculateTaxes();
 
   return (
-    <section id="simulador" className="py-20 lg:py-28 bg-transparent relative">
+    <section id="simulador" className="py-14 sm:py-20 lg:py-28 bg-transparent relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-14 space-y-3">
+        <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-14 space-y-2.5 sm:space-y-3">
           <span className="text-xs font-bold uppercase tracking-widest text-[#0B63CE] bg-[#0B63CE]/10 px-3.5 py-1.5 rounded-full inline-flex items-center gap-1.5">
             <Calculator className="w-3.5 h-3.5" />
             Ferramenta Interativa
           </span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight leading-snug">
             Simulador de Regime Tributário & Economia
           </h2>
-          <p className="text-slate-600 text-base sm:text-lg">
+          <p className="text-slate-600 text-sm sm:text-lg">
             Estime em segundos qual o regime fiscal mais vantajoso para sua empresa em Bragança Paulista.
           </p>
         </div>
 
         {/* Simulator Card Container */}
-        <div className="glass-card p-6 sm:p-10 rounded-3xl border border-slate-200 shadow-xl grid grid-cols-1 lg:grid-cols-12 gap-10">
+        <div className="glass-card p-4 sm:p-8 lg:p-10 rounded-3xl border border-slate-200 shadow-xl grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
           
           {/* Inputs Column */}
-          <div className="lg:col-span-7 space-y-6 text-left">
+          <div className="lg:col-span-7 space-y-5 sm:space-y-6 text-left">
             
             {/* Segment Selector */}
             <div>
               <label className="block text-xs font-bold uppercase text-slate-700 tracking-wider mb-2">
                 Segmento de Atuação
               </label>
-              <div className="grid grid-cols-3 gap-2">
+              <div className="grid grid-cols-3 gap-1.5 sm:gap-2">
                 {(['servicos', 'comercio', 'industria'] as const).map((seg) => (
                   <button
                     key={seg}
                     onClick={() => setSegment(seg)}
-                    className={`py-3 px-3 text-xs sm:text-sm font-bold rounded-xl capitalize transition-all cursor-pointer ${
+                    className={`py-2.5 sm:py-3 px-2 sm:px-3 text-xs sm:text-sm font-bold rounded-xl capitalize transition-all cursor-pointer active:scale-95 ${
                       segment === seg
                         ? 'bg-[#0B63CE] text-white shadow-md'
                         : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
@@ -117,7 +117,7 @@ export const TaxCalculator: React.FC<TaxCalculatorProps> = ({ onOpenQuoteModal }
                 <label className="text-xs font-bold uppercase text-slate-700 tracking-wider">
                   Faturamento Mensal Estimado
                 </label>
-                <span className="text-lg font-extrabold text-[#0B63CE]">
+                <span className="text-base sm:text-lg font-extrabold text-[#0B63CE]">
                   R$ {revenue.toLocaleString('pt-BR')}
                 </span>
               </div>
@@ -128,9 +128,9 @@ export const TaxCalculator: React.FC<TaxCalculatorProps> = ({ onOpenQuoteModal }
                 step="5000"
                 value={revenue}
                 onChange={(e) => setRevenue(Number(e.target.value))}
-                className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#0B63CE]"
+                className="w-full h-2.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#0B63CE]"
               />
-              <div className="flex justify-between text-xs text-slate-400 mt-1">
+              <div className="flex justify-between text-[11px] sm:text-xs text-slate-400 mt-1">
                 <span>R$ 10 mil</span>
                 <span>R$ 150 mil</span>
                 <span>R$ 300 mil+</span>
@@ -143,7 +143,7 @@ export const TaxCalculator: React.FC<TaxCalculatorProps> = ({ onOpenQuoteModal }
                 <label className="text-xs font-bold uppercase text-slate-700 tracking-wider">
                   Custo Mensal com Folha / Pró-Labore
                 </label>
-                <span className="text-base font-extrabold text-slate-800">
+                <span className="text-sm sm:text-base font-extrabold text-slate-800">
                   R$ {payrollCost.toLocaleString('pt-BR')}
                 </span>
               </div>
@@ -154,7 +154,7 @@ export const TaxCalculator: React.FC<TaxCalculatorProps> = ({ onOpenQuoteModal }
                 step="1000"
                 value={payrollCost}
                 onChange={(e) => setPayrollCost(Number(e.target.value))}
-                className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#0B63CE]"
+                className="w-full h-2.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#0B63CE]"
               />
             </div>
 
@@ -163,12 +163,12 @@ export const TaxCalculator: React.FC<TaxCalculatorProps> = ({ onOpenQuoteModal }
               <label className="block text-xs font-bold uppercase text-slate-700 tracking-wider mb-2">
                 Número de Colaboradores
               </label>
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-1.5 sm:gap-3">
                 {[1, 3, 5, 10, 20].map((num) => (
                   <button
                     key={num}
                     onClick={() => setEmployees(num)}
-                    className={`flex-1 py-2.5 text-xs sm:text-sm font-bold rounded-xl transition-all cursor-pointer ${
+                    className={`flex-1 py-2 sm:py-2.5 text-xs sm:text-sm font-bold rounded-xl transition-all cursor-pointer active:scale-95 ${
                       employees === num
                         ? 'bg-[#0B63CE] text-white shadow-xs'
                         : 'bg-slate-100 hover:bg-slate-200 text-slate-700'
@@ -183,8 +183,8 @@ export const TaxCalculator: React.FC<TaxCalculatorProps> = ({ onOpenQuoteModal }
           </div>
 
           {/* Results Output Column */}
-          <div className="lg:col-span-5 bg-slate-50 p-6 rounded-2xl border border-slate-200/80 flex flex-col justify-between text-left">
-            <div className="space-y-5">
+          <div className="lg:col-span-5 bg-slate-50 p-4 sm:p-6 rounded-2xl border border-slate-200/80 flex flex-col justify-between text-left">
+            <div className="space-y-4 sm:space-y-5">
               
               <div className="flex items-center gap-2 text-xs font-bold uppercase text-[#0B63CE] tracking-wider">
                 <Sparkles className="w-4 h-4" />
@@ -193,23 +193,23 @@ export const TaxCalculator: React.FC<TaxCalculatorProps> = ({ onOpenQuoteModal }
 
               <div>
                 <span className="text-xs text-slate-500 font-medium">Regime Recomendado:</span>
-                <h3 className="text-2xl font-black text-slate-900 mt-0.5">
+                <h3 className="text-xl sm:text-2xl font-black text-slate-900 mt-0.5">
                   {result.recommendedRegime}
                 </h3>
               </div>
 
               {/* Comparison Boxes */}
-              <div className="grid grid-cols-2 gap-3">
-                <div className="p-3.5 rounded-xl bg-white border border-slate-200">
-                  <span className="text-[11px] font-semibold text-slate-500 block">Simples Nacional (est.)</span>
-                  <span className="text-base font-extrabold text-slate-800">
+              <div className="grid grid-cols-2 gap-2.5 sm:gap-3">
+                <div className="p-3 sm:p-3.5 rounded-xl bg-white border border-slate-200">
+                  <span className="text-[10px] sm:text-[11px] font-semibold text-slate-500 block leading-tight">Simples Nacional (est.)</span>
+                  <span className="text-sm sm:text-base font-extrabold text-slate-800 mt-0.5 block">
                     R$ {result.simplesEstimated.toLocaleString('pt-BR')}/mês
                   </span>
                 </div>
 
-                <div className="p-3.5 rounded-xl bg-white border border-slate-200">
-                  <span className="text-[11px] font-semibold text-slate-500 block">Lucro Presumido (est.)</span>
-                  <span className="text-base font-extrabold text-slate-800">
+                <div className="p-3 sm:p-3.5 rounded-xl bg-white border border-slate-200">
+                  <span className="text-[10px] sm:text-[11px] font-semibold text-slate-500 block leading-tight">Lucro Presumido (est.)</span>
+                  <span className="text-sm sm:text-base font-extrabold text-slate-800 mt-0.5 block">
                     R$ {result.lucroPresumidoEstimated.toLocaleString('pt-BR')}/mês
                   </span>
                 </div>
@@ -217,14 +217,14 @@ export const TaxCalculator: React.FC<TaxCalculatorProps> = ({ onOpenQuoteModal }
 
               {/* Monthly Savings Badge */}
               {result.estimatedMonthlySavings > 0 && (
-                <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-between">
+                <div className="p-3.5 sm:p-4 rounded-xl bg-emerald-50 border border-emerald-200 flex items-center justify-between">
                   <div>
-                    <span className="text-xs font-bold text-emerald-800 block">Economia Estimada Potencial</span>
-                    <span className="text-xl font-black text-emerald-700">
+                    <span className="text-[11px] sm:text-xs font-bold text-emerald-800 block">Economia Estimada Potencial</span>
+                    <span className="text-lg sm:text-xl font-black text-emerald-700">
                       R$ {(result.estimatedMonthlySavings * 12).toLocaleString('pt-BR')} / ano
                     </span>
                   </div>
-                  <TrendingDown className="w-7 h-7 text-emerald-600" />
+                  <TrendingDown className="w-6 h-6 sm:w-7 sm:h-7 text-emerald-600 flex-shrink-0" />
                 </div>
               )}
 
@@ -233,7 +233,7 @@ export const TaxCalculator: React.FC<TaxCalculatorProps> = ({ onOpenQuoteModal }
                 {result.insights.map((insight, idx) => (
                   <div key={idx} className="flex items-start gap-2">
                     <CheckCircle2 className="w-3.5 h-3.5 text-[#0B63CE] flex-shrink-0 mt-0.5" />
-                    <span>{insight}</span>
+                    <span className="leading-snug">{insight}</span>
                   </div>
                 ))}
               </div>
@@ -241,12 +241,12 @@ export const TaxCalculator: React.FC<TaxCalculatorProps> = ({ onOpenQuoteModal }
             </div>
 
             {/* CTA Action */}
-            <div className="pt-6 mt-6 border-t border-slate-200">
+            <div className="pt-4 sm:pt-6 mt-4 sm:mt-6 border-t border-slate-200">
               <button
                 onClick={() => onOpenQuoteModal(`Diagnóstico Tributário (${result.recommendedRegime})`)}
-                className="w-full py-3.5 px-4 bg-[#0B63CE] hover:bg-[#0952ae] text-white font-bold text-xs rounded-xl shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer"
+                className="w-full py-3.5 px-4 bg-[#0B63CE] hover:bg-[#0952ae] text-white font-bold text-xs sm:text-sm rounded-xl shadow-md transition-all active:scale-98 flex items-center justify-center gap-2 cursor-pointer"
               >
-                <span>Solicitar Diagnóstico Gratuito com Contador</span>
+                <span>Solicitar Diagnóstico com Contador</span>
                 <ArrowRight className="w-4 h-4" />
               </button>
             </div>

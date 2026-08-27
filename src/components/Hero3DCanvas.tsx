@@ -288,10 +288,10 @@ export const Hero3DCanvas: React.FC = () => {
   }, []);
 
   return (
-    <div className="relative w-full h-[450px] sm:h-[520px] lg:h-[580px] flex items-center justify-center">
+    <div className="relative w-full h-[280px] xs:h-[340px] sm:h-[450px] lg:h-[540px] flex items-center justify-center select-none touch-pan-y">
       {/* Background ambient glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-72 h-72 sm:w-96 sm:h-96 bg-[#0B63CE]/10 rounded-full blur-3xl pointer-events-none" />
-      <div ref={mountRef} className="w-full h-full cursor-grab active:cursor-grabbing" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 sm:w-96 sm:h-96 bg-[#0B63CE]/10 rounded-full blur-3xl pointer-events-none" />
+      <div ref={mountRef} className="w-full h-full cursor-grab active:cursor-grabbing touch-pan-y" />
     </div>
   );
 };

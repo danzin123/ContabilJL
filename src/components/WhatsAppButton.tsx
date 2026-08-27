@@ -4,7 +4,7 @@ import whatsappImg from '../assets/whatsapp.png';
 
 export const WhatsAppButton: React.FC = () => {
   return (
-    <div className="fixed bottom-6 right-6 z-40">
+    <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40">
       <a
         href={`https://wa.me/${COMPANY_INFO.whatsappRaw}?text=${encodeURIComponent('Olá! Vim pelo site e gostaria de atendimento do Escritório Contábil JL Oliveira.')}`}
         target="_blank"
@@ -15,7 +15,7 @@ export const WhatsAppButton: React.FC = () => {
         <img
           src={whatsappImg}
           alt="WhatsApp Escritório Contábil JL Oliveira"
-          className="w-14 h-14 sm:w-16 sm:h-16 drop-shadow-2xl"
+          className="w-13 h-13 sm:w-16 sm:h-16 drop-shadow-2xl"
         />
       </a>
     </div>

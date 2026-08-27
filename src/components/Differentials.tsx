@@ -36,42 +36,42 @@ export const Differentials: React.FC = () => {
   };
 
   return (
-    <section id="diferenciais" ref={sectionRef} className="py-20 lg:py-28 bg-transparent relative overflow-hidden">
+    <section id="diferenciais" ref={sectionRef} className="py-14 sm:py-20 lg:py-28 bg-transparent relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-16 space-y-2.5 sm:space-y-3">
           <span className="text-xs font-bold uppercase tracking-widest text-[#0B63CE] bg-[#0B63CE]/10 px-3.5 py-1.5 rounded-full">
             Por Que Escolher a JL Oliveira
           </span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight leading-snug">
             Excelência Comprovada em Números e Resultados
           </h2>
-          <p className="text-slate-600 text-base sm:text-lg">
+          <p className="text-slate-600 text-sm sm:text-lg">
             Combinamos solidez técnica, inovação contínua e foco absoluto na segurança fiscal dos nossos clientes.
           </p>
         </div>
 
         {/* Animated Metrics Bar */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 mb-10 sm:mb-16">
           {DIFFERENTIALS.map((item) => (
             <div
               key={item.id}
-              className="glass-card p-6 rounded-3xl text-center space-y-3 hover:-translate-y-1 transition-transform"
+              className="glass-card p-4 sm:p-6 rounded-2xl sm:rounded-3xl text-center space-y-2 sm:space-y-3 hover:-translate-y-1 transition-transform"
             >
-              <div className="w-12 h-12 rounded-2xl bg-slate-100 flex items-center justify-center mx-auto">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-slate-100 flex items-center justify-center mx-auto">
                 {getMetricIcon(item.iconName)}
               </div>
 
-              <div className="text-3xl sm:text-4xl font-black text-[#0B63CE] tracking-tight">
+              <div className="text-2xl xs:text-3xl sm:text-4xl font-black text-[#0B63CE] tracking-tight">
                 {item.metric}
               </div>
 
-              <div className="text-sm font-bold text-slate-900">
+              <div className="text-xs sm:text-sm font-bold text-slate-900 leading-tight">
                 {item.label}
               </div>
 
-              <p className="text-slate-500 text-xs leading-relaxed">
+              <p className="text-slate-500 text-[11px] sm:text-xs leading-relaxed line-clamp-3">
                 {item.description}
               </p>
             </div>
@@ -79,18 +79,18 @@ export const Differentials: React.FC = () => {
         </div>
 
         {/* Split Grid: Value Highlights + 3D Growth Graphic */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 items-center">
           
           {/* Left Column Key Differentials */}
-          <div className="lg:col-span-7 space-y-6 text-left">
-            <h3 className="text-2xl font-bold text-slate-900">
+          <div className="lg:col-span-7 space-y-4 sm:space-y-6 text-left">
+            <h3 className="text-xl sm:text-2xl font-bold text-slate-900 leading-snug">
               O padrão de agência corporativa que sua empresa merece:
             </h3>
 
-            <div className="space-y-4">
-              <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs flex items-start gap-4">
-                <div className="p-3 bg-[#0B63CE]/10 rounded-xl flex-shrink-0">
-                  <TrendingUp className="w-6 h-6 text-[#0B63CE]" />
+            <div className="space-y-3 sm:space-y-4">
+              <div className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200 shadow-xs flex items-start gap-3.5 sm:gap-4">
+                <div className="p-2.5 sm:p-3 bg-[#0B63CE]/10 rounded-xl flex-shrink-0">
+                  <TrendingUp className="w-5 h-5 sm:w-6 sm:h-6 text-[#0B63CE]" />
                 </div>
                 <div>
                   <h4 className="font-bold text-slate-900 text-sm sm:text-base">
@@ -102,9 +102,9 @@ export const Differentials: React.FC = () => {
                 </div>
               </div>
 
-              <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs flex items-start gap-4">
-                <div className="p-3 bg-[#0B63CE]/10 rounded-xl flex-shrink-0">
-                  <Zap className="w-6 h-6 text-[#0B63CE]" />
+              <div className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200 shadow-xs flex items-start gap-3.5 sm:gap-4">
+                <div className="p-2.5 sm:p-3 bg-[#0B63CE]/10 rounded-xl flex-shrink-0">
+                  <Zap className="w-5 h-5 sm:w-6 sm:h-6 text-[#0B63CE]" />
                 </div>
                 <div>
                   <h4 className="font-bold text-slate-900 text-sm sm:text-base">
@@ -116,9 +116,9 @@ export const Differentials: React.FC = () => {
                 </div>
               </div>
 
-              <div className="p-5 rounded-2xl bg-white border border-slate-200 shadow-xs flex items-start gap-4">
-                <div className="p-3 bg-[#0B63CE]/10 rounded-xl flex-shrink-0">
-                  <Lock className="w-6 h-6 text-[#0B63CE]" />
+              <div className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200 shadow-xs flex items-start gap-3.5 sm:gap-4">
+                <div className="p-2.5 sm:p-3 bg-[#0B63CE]/10 rounded-xl flex-shrink-0">
+                  <Lock className="w-5 h-5 sm:w-6 sm:h-6 text-[#0B63CE]" />
                 </div>
                 <div>
                   <h4 className="font-bold text-slate-900 text-sm sm:text-base">
@@ -136,9 +136,9 @@ export const Differentials: React.FC = () => {
           <div className="lg:col-span-5 relative">
             <div className="glass-card p-4 rounded-3xl relative">
               <Growth3DGraphic />
-              <div className="absolute top-6 right-6 bg-white/90 backdrop-blur-md px-4 py-2 rounded-xl border border-slate-200 text-xs font-bold text-[#0B63CE] shadow-sm flex items-center gap-2">
+              <div className="absolute top-6 right-6 bg-white/90 backdrop-blur-md px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl border border-slate-200 text-xs font-bold text-[#0B63CE] shadow-sm flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-[#0B63CE] animate-pulse" />
-                Crescimento Sustentável
+                <span>Crescimento Sustentável</span>
               </div>
             </div>
           </div>

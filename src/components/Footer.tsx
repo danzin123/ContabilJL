@@ -10,11 +10,11 @@ export const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="bg-slate-900 text-slate-300 pt-16 pb-12 border-t border-slate-800 text-left">
+    <footer className="bg-slate-900 text-slate-300 pt-12 sm:pt-16 pb-10 sm:pb-12 border-t border-slate-800 text-left">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Top Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 pb-12 border-b border-slate-800">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 sm:gap-10 pb-8 sm:pb-12 border-b border-slate-800">
           
           {/* Brand Col */}
           <div className="lg:col-span-4 space-y-4">
@@ -23,7 +23,7 @@ export const Footer: React.FC = () => {
                 <img
                   src={logoImg}
                   alt="Escritório Contábil JL Oliveira"
-                  className="h-10 w-auto object-contain"
+                  className="h-9 sm:h-10 w-auto object-contain"
                 />
               </div>
               <div className="flex flex-col">
@@ -41,12 +41,12 @@ export const Footer: React.FC = () => {
             </p>
 
             {/* Social Icons */}
-            <div className="flex items-center gap-3 pt-2">
+            <div className="flex items-center gap-3 pt-1">
               <a
                 href={COMPANY_INFO.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2.5 rounded-xl bg-slate-800 text-slate-300 hover:text-white hover:bg-[#0B63CE] transition-colors"
+                className="w-10 h-10 rounded-xl bg-slate-800 text-slate-300 hover:text-white hover:bg-[#0B63CE] transition-colors flex items-center justify-center active:scale-95"
                 aria-label="Instagram"
               >
                 <Instagram className="w-4 h-4" />
@@ -55,7 +55,7 @@ export const Footer: React.FC = () => {
                 href="https://linkedin.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2.5 rounded-xl bg-slate-800 text-slate-300 hover:text-white hover:bg-[#0B63CE] transition-colors"
+                className="w-10 h-10 rounded-xl bg-slate-800 text-slate-300 hover:text-white hover:bg-[#0B63CE] transition-colors flex items-center justify-center active:scale-95"
                 aria-label="LinkedIn"
               >
                 <Linkedin className="w-4 h-4" />
@@ -64,7 +64,7 @@ export const Footer: React.FC = () => {
                 href="https://facebook.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2.5 rounded-xl bg-slate-800 text-slate-300 hover:text-white hover:bg-[#0B63CE] transition-colors"
+                className="w-10 h-10 rounded-xl bg-slate-800 text-slate-300 hover:text-white hover:bg-[#0B63CE] transition-colors flex items-center justify-center active:scale-95"
                 aria-label="Facebook"
               >
                 <Facebook className="w-4 h-4" />
@@ -77,12 +77,12 @@ export const Footer: React.FC = () => {
             <h4 className="text-xs font-bold text-white uppercase tracking-wider">
               Navegação Rápida
             </h4>
-            <ul className="space-y-2 text-xs sm:text-sm">
+            <ul className="grid grid-cols-2 sm:grid-cols-1 gap-2 text-xs sm:text-sm">
               {['Início', 'Sobre', 'Serviços', 'Diferenciais', 'Simulador', 'Contato'].map((item) => (
                 <li key={item}>
                   <a
                     href={`#${item.toLowerCase()}`}
-                    className="text-slate-400 hover:text-white transition-colors"
+                    className="text-slate-400 hover:text-white transition-colors block py-0.5"
                   >
                     {item}
                   </a>
@@ -96,7 +96,7 @@ export const Footer: React.FC = () => {
             <h4 className="text-xs font-bold text-white uppercase tracking-wider">
               Serviços
             </h4>
-            <ul className="space-y-2 text-xs text-slate-400">
+            <ul className="space-y-1.5 text-xs text-slate-400">
               <li>Abertura de Empresas</li>
               <li>Escrita Fiscal</li>
               <li>Departamento Pessoal</li>
@@ -112,7 +112,7 @@ export const Footer: React.FC = () => {
               Localização & Contato
             </h4>
 
-            <div className="space-y-2 text-xs text-slate-400">
+            <div className="space-y-2.5 text-xs text-slate-400">
               <div className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 text-[#0B63CE] flex-shrink-0 mt-0.5" />
                 <span>{COMPANY_INFO.fullAddress}</span>
@@ -142,17 +142,17 @@ export const Footer: React.FC = () => {
         </div>
 
         {/* Bottom copyright & back to top */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+        <div className="pt-6 sm:pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500 text-center sm:text-left">
           <div>
             © {new Date().getFullYear()} {COMPANY_INFO.name}. Todos os direitos reservados.
           </div>
 
-          <div className="flex items-center gap-6">
-            <span className="hover:underline cursor-pointer">Política de Privacidade</span>
-            <span className="hover:underline cursor-pointer">Termos de Uso</span>
+          <div className="flex items-center gap-4 sm:gap-6">
+            <span className="hover:underline cursor-pointer">Privacidade</span>
+            <span className="hover:underline cursor-pointer">Termos</span>
             <button
               onClick={scrollToTop}
-              className="p-2.5 rounded-xl bg-slate-800 text-slate-300 hover:text-white hover:bg-[#0B63CE] transition-all cursor-pointer flex items-center gap-1"
+              className="p-2.5 rounded-xl bg-slate-800 text-slate-300 hover:text-white hover:bg-[#0B63CE] transition-all cursor-pointer flex items-center gap-1 active:scale-95"
               aria-label="Voltar ao Topo"
             >
               <ArrowUp className="w-4 h-4" />

@@ -53,59 +53,59 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({ isOpen, onClose, prefill
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="relative w-full max-w-lg bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-100 p-6 sm:p-8 text-left">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-900/60 backdrop-blur-sm animate-in fade-in duration-200">
+      <div className="relative w-full max-w-lg bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-100 p-5 sm:p-8 text-left max-h-[88vh] overflow-y-auto">
         
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-5 right-5 p-2 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-full transition-colors cursor-pointer"
+          className="absolute top-4 right-4 sm:top-5 sm:right-5 p-2 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-full transition-colors cursor-pointer"
           aria-label="Fechar"
         >
           <X className="w-5 h-5" />
         </button>
 
         {isSuccess ? (
-          <div className="py-8 text-center space-y-5">
+          <div className="py-6 sm:py-8 text-center space-y-4 sm:space-y-5">
             <div className="w-14 h-14 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
               <CheckCircle2 className="w-8 h-8" />
             </div>
 
-            <h3 className="text-2xl font-black text-slate-900">
+            <h3 className="text-xl sm:text-2xl font-black text-slate-900">
               Solicitação Recebida!
             </h3>
 
-            <p className="text-slate-600 text-sm">
+            <p className="text-slate-600 text-xs sm:text-sm leading-relaxed">
               Um dos nossos contadores entrará em contato em breve para apresentar uma proposta personalizada para sua empresa.
             </p>
 
             <div className="pt-2 flex flex-col gap-2">
               <button
                 onClick={handleWhatsAppRedirect}
-                className="w-full py-3.5 px-4 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-xs rounded-xl shadow-md transition-all flex items-center justify-center gap-2"
+                className="w-full py-3.5 px-4 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-xs sm:text-sm rounded-xl shadow-md transition-all flex items-center justify-center gap-2 active:scale-98"
               >
-                <MessageCircle className="w-4 h-4" />
+                <img src={whatsappImg} alt="WhatsApp" className="w-4 h-4 object-contain" />
                 <span>Agilizar Atendimento via WhatsApp</span>
               </button>
 
               <button
                 onClick={onClose}
-                className="w-full py-3 px-4 bg-slate-100 text-slate-700 font-bold text-xs rounded-xl"
+                className="w-full py-3 px-4 bg-slate-100 text-slate-700 font-bold text-xs rounded-xl active:bg-slate-200"
               >
                 Fechar
               </button>
             </div>
           </div>
         ) : (
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-3.5 sm:space-y-4">
             
             <div className="flex items-center gap-3 pr-6">
-              <img src={logoImg} alt="JL Oliveira" className="h-10 w-auto object-contain flex-shrink-0" />
+              <img src={logoImg} alt="JL Oliveira" className="h-9 sm:h-10 w-auto object-contain flex-shrink-0" />
               <div className="space-y-0.5">
-                <span className="text-xs font-bold uppercase tracking-wider text-[#0B63CE] block">
+                <span className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-[#0B63CE] block">
                   Escritório Contábil JL Oliveira
                 </span>
-                <h3 className="text-xl font-extrabold text-slate-900 leading-tight">
+                <h3 className="text-lg sm:text-xl font-extrabold text-slate-900 leading-tight">
                   Solicite uma Proposta Contábil
                 </h3>
               </div>
@@ -128,7 +128,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({ isOpen, onClose, prefill
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Ex: Roberto Oliveira"
-                className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-[#0B63CE]"
+                className="w-full px-3.5 sm:px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-base sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-[#0B63CE]"
               />
             </div>
 
@@ -143,7 +143,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({ isOpen, onClose, prefill
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   placeholder="Ex: (11) 99899-0000"
-                  className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-[#0B63CE]"
+                  className="w-full px-3.5 sm:px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-base sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-[#0B63CE]"
                 />
               </div>
 
@@ -156,7 +156,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({ isOpen, onClose, prefill
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="seu@email.com"
-                  className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-[#0B63CE]"
+                  className="w-full px-3.5 sm:px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-base sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-[#0B63CE]"
                 />
               </div>
             </div>
@@ -168,7 +168,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({ isOpen, onClose, prefill
               <select
                 value={service}
                 onChange={(e) => setService(e.target.value)}
-                className="w-full px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-[#0B63CE]"
+                className="w-full px-3.5 sm:px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-base sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-[#0B63CE]"
               >
                 <option value="Abertura de Empresas">Abertura de Empresas</option>
                 <option value="Troca de Contador / Migração">Troca de Contador / Migração</option>
@@ -191,7 +191,7 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({ isOpen, onClose, prefill
                     key={item}
                     type="button"
                     onClick={() => setCompanyType(item)}
-                    className={`py-2 px-3 text-xs font-bold rounded-xl transition-all cursor-pointer ${
+                    className={`py-2 px-3 text-xs font-bold rounded-xl transition-all cursor-pointer active:scale-95 ${
                       companyType === item
                         ? 'bg-[#0B63CE] text-white'
                         : 'bg-slate-100 text-slate-700 hover:bg-slate-200'
@@ -212,14 +212,14 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({ isOpen, onClose, prefill
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
                 placeholder="Faturamento aproximado ou ramo de atividade..."
-                className="w-full px-4 py-2 rounded-xl bg-slate-50 border border-slate-200 text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-[#0B63CE] resize-none"
+                className="w-full px-3.5 sm:px-4 py-2 rounded-xl bg-slate-50 border border-slate-200 text-base sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-[#0B63CE] resize-none"
               />
             </div>
 
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full py-3.5 px-6 bg-[#0B63CE] hover:bg-[#0952ae] text-white font-bold text-xs rounded-xl shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70 mt-2"
+              className="w-full py-3.5 px-6 bg-[#0B63CE] hover:bg-[#0952ae] text-white font-bold text-xs sm:text-sm rounded-xl shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70 active:scale-98 mt-2"
             >
               {isSubmitting ? (
                 <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />

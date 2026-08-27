@@ -60,32 +60,32 @@ export const Contact: React.FC = () => {
   };
 
   return (
-    <section id="contato" className="py-20 lg:py-28 bg-transparent relative">
+    <section id="contato" className="py-14 sm:py-20 lg:py-28 bg-transparent relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16 space-y-3">
+        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-16 space-y-2.5 sm:space-y-3">
           <span className="text-xs font-bold uppercase tracking-widest text-[#0B63CE] bg-[#0B63CE]/10 px-3.5 py-1.5 rounded-full">
             Fale Conosco
           </span>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight leading-snug">
             Estamos Prontos para Atender Sua Empresa
           </h2>
-          <p className="text-slate-600 text-base sm:text-lg">
+          <p className="text-slate-600 text-sm sm:text-lg">
             Venha tomar um café em nosso escritório em Bragança Paulista ou solicite um atendimento digital imediato.
           </p>
         </div>
 
         {/* Split Contact Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
           
           {/* Left Column: Direct Info & Google Maps */}
-          <div className="lg:col-span-5 space-y-6 text-left">
+          <div className="lg:col-span-5 space-y-4 sm:space-y-6 text-left">
             
-            <div className="space-y-4">
+            <div className="space-y-3 sm:space-y-4">
               {/* Address Card */}
-              <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 flex items-start gap-4">
-                <div className="p-3 bg-[#0B63CE] text-white rounded-xl flex-shrink-0 shadow-sm">
+              <div className="p-4 sm:p-5 rounded-2xl bg-slate-50 border border-slate-200 flex items-start gap-3.5 sm:gap-4">
+                <div className="p-2.5 sm:p-3 bg-[#0B63CE] text-white rounded-xl flex-shrink-0 shadow-sm">
                   <MapPin className="w-5 h-5" />
                 </div>
                 <div>
@@ -100,7 +100,7 @@ export const Contact: React.FC = () => {
                     href="https://maps.google.com/?q=Rua+Nicolino+Nacaratti+416+Braganca+Paulista+SP"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-xs font-bold text-[#0B63CE] hover:underline mt-2"
+                    className="inline-flex items-center gap-1 text-xs font-bold text-[#0B63CE] hover:underline mt-1.5"
                   >
                     <Navigation className="w-3.5 h-3.5" />
                     <span>Como chegar via Google Maps</span>
@@ -109,8 +109,8 @@ export const Contact: React.FC = () => {
               </div>
 
               {/* Phone Card */}
-              <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 flex items-start gap-4">
-                <div className="p-3 bg-[#0B63CE] text-white rounded-xl flex-shrink-0 shadow-sm">
+              <div className="p-4 sm:p-5 rounded-2xl bg-slate-50 border border-slate-200 flex items-start gap-3.5 sm:gap-4">
+                <div className="p-2.5 sm:p-3 bg-[#0B63CE] text-white rounded-xl flex-shrink-0 shadow-sm">
                   <Phone className="w-5 h-5" />
                 </div>
                 <div>
@@ -122,11 +122,11 @@ export const Contact: React.FC = () => {
               </div>
 
               {/* WhatsApp Card */}
-              <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 flex items-start gap-4">
+              <div className="p-4 sm:p-5 rounded-2xl bg-slate-50 border border-slate-200 flex items-start gap-3.5 sm:gap-4">
                 <img
                   src={whatsappImg}
                   alt="WhatsApp"
-                  className="w-11 h-11 object-contain flex-shrink-0"
+                  className="w-10 h-10 sm:w-11 sm:h-11 object-contain flex-shrink-0"
                 />
                 <div>
                   <h4 className="font-bold text-slate-900 text-sm">WhatsApp</h4>
@@ -143,8 +143,8 @@ export const Contact: React.FC = () => {
               </div>
 
               {/* Instagram Card */}
-              <div className="p-5 rounded-2xl bg-slate-50 border border-slate-200 flex items-start gap-4">
-                <div className="p-3 bg-gradient-to-tr from-[#F58529] via-[#DD2A7B] to-[#8134AF] text-white rounded-xl flex-shrink-0 shadow-sm">
+              <div className="p-4 sm:p-5 rounded-2xl bg-slate-50 border border-slate-200 flex items-start gap-3.5 sm:gap-4">
+                <div className="p-2.5 sm:p-3 bg-gradient-to-tr from-[#F58529] via-[#DD2A7B] to-[#8134AF] text-white rounded-xl flex-shrink-0 shadow-sm">
                   <Instagram className="w-5 h-5" />
                 </div>
                 <div>
@@ -162,14 +162,14 @@ export const Contact: React.FC = () => {
               </div>
 
               {/* Hours */}
-              <div className="p-4 rounded-2xl bg-slate-100/70 border border-slate-200 flex items-center gap-3 text-xs text-slate-700">
-                <Clock className="w-4 h-4 text-[#0B63CE]" />
+              <div className="p-3.5 sm:p-4 rounded-2xl bg-slate-100/70 border border-slate-200 flex items-center gap-3 text-xs text-slate-700">
+                <Clock className="w-4 h-4 text-[#0B63CE] flex-shrink-0" />
                 <span><strong>Horário:</strong> {COMPANY_INFO.businessHours}</span>
               </div>
             </div>
 
             {/* Embedded Google Maps Box */}
-            <div className="rounded-3xl overflow-hidden border border-slate-200 shadow-md h-64 relative bg-slate-100">
+            <div className="rounded-3xl overflow-hidden border border-slate-200 shadow-md h-52 sm:h-64 relative bg-slate-100">
               <iframe
                 title="Localização do Escritório Contábil JL Oliveira"
                 src={COMPANY_INFO.mapsEmbedUrl}
@@ -185,27 +185,27 @@ export const Contact: React.FC = () => {
           </div>
 
           {/* Right Column: Contact Form */}
-          <div className="lg:col-span-7 glass-card p-6 sm:p-10 rounded-3xl border border-slate-200 shadow-xl text-left">
+          <div className="lg:col-span-7 glass-card p-5 sm:p-8 lg:p-10 rounded-3xl border border-slate-200 shadow-xl text-left">
             
             {isSubmitted ? (
-              <div className="py-12 text-center space-y-6">
-                <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
-                  <CheckCircle2 className="w-10 h-10" />
+              <div className="py-8 sm:py-12 text-center space-y-5 sm:space-y-6">
+                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
+                  <CheckCircle2 className="w-8 h-8 sm:w-10 sm:h-10" />
                 </div>
 
                 <div className="space-y-2 max-w-md mx-auto">
-                  <h3 className="text-2xl font-black text-slate-900">
+                  <h3 className="text-xl sm:text-2xl font-black text-slate-900">
                     Mensagem Enviada com Sucesso!
                   </h3>
-                  <p className="text-slate-600 text-sm leading-relaxed">
+                  <p className="text-slate-600 text-xs sm:text-sm leading-relaxed">
                     Agradecemos seu contato, <strong className="text-slate-800">{formData.name}</strong>. Nossa equipe entrará em contato em breve via telefone ou e-mail.
                   </p>
                 </div>
 
-                <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
+                <div className="pt-2 sm:pt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
                   <button
                     onClick={handleSendToWhatsApp}
-                    className="w-full sm:w-auto px-6 py-3.5 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-xs rounded-xl shadow-md transition-all flex items-center justify-center gap-2"
+                    className="w-full sm:w-auto px-5 sm:px-6 py-3.5 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-xs rounded-xl shadow-md transition-all flex items-center justify-center gap-2 active:scale-98"
                   >
                     <img src={whatsappImg} alt="WhatsApp" className="w-4 h-4 object-contain" />
                     <span>Enviar Cópia via WhatsApp Agora</span>
@@ -223,17 +223,17 @@ export const Contact: React.FC = () => {
                         message: ''
                       });
                     }}
-                    className="w-full sm:w-auto px-6 py-3.5 bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs rounded-xl transition-all"
+                    className="w-full sm:w-auto px-5 sm:px-6 py-3.5 bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs rounded-xl transition-all active:scale-98"
                   >
                     Enviar Nova Mensagem
                   </button>
                 </div>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-5">
+              <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
                 
                 <div className="space-y-1">
-                  <h3 className="text-xl font-bold text-slate-900">
+                  <h3 className="text-lg sm:text-xl font-bold text-slate-900">
                     Solicite Atendimento ou Orçamento
                   </h3>
                   <p className="text-xs text-slate-500">
@@ -248,7 +248,7 @@ export const Contact: React.FC = () => {
                   </div>
                 )}
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
                   {/* Name */}
                   <div>
                     <label className="block text-xs font-bold text-slate-700 uppercase mb-1">
@@ -261,7 +261,7 @@ export const Contact: React.FC = () => {
                       value={formData.name}
                       onChange={handleChange}
                       placeholder="Ex: Carlos Silva"
-                      className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-[#0B63CE] transition-all"
+                      className="w-full px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl bg-slate-50 border border-slate-200 text-base sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-[#0B63CE] transition-all"
                     />
                   </div>
 
@@ -276,12 +276,12 @@ export const Contact: React.FC = () => {
                       value={formData.company}
                       onChange={handleChange}
                       placeholder="Ex: Silva Comercio Ltda"
-                      className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-[#0B63CE] transition-all"
+                      className="w-full px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl bg-slate-50 border border-slate-200 text-base sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-[#0B63CE] transition-all"
                     />
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
                   {/* Email */}
                   <div>
                     <label className="block text-xs font-bold text-slate-700 uppercase mb-1">
@@ -294,7 +294,7 @@ export const Contact: React.FC = () => {
                       value={formData.email}
                       onChange={handleChange}
                       placeholder="Ex: contato@empresa.com.br"
-                      className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-[#0B63CE] transition-all"
+                      className="w-full px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl bg-slate-50 border border-slate-200 text-base sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-[#0B63CE] transition-all"
                     />
                   </div>
 
@@ -310,7 +310,7 @@ export const Contact: React.FC = () => {
                       value={formData.phone}
                       onChange={handleChange}
                       placeholder="Ex: (11) 99899-0000"
-                      className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-[#0B63CE] transition-all"
+                      className="w-full px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl bg-slate-50 border border-slate-200 text-base sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-[#0B63CE] transition-all"
                     />
                   </div>
                 </div>
@@ -324,7 +324,7 @@ export const Contact: React.FC = () => {
                     name="service"
                     value={formData.service}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-[#0B63CE] transition-all"
+                    className="w-full px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl bg-slate-50 border border-slate-200 text-base sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-[#0B63CE] transition-all"
                   >
                     <option value="Abertura de Empresas">Abertura de Empresas</option>
                     <option value="Escrita Fiscal">Escrita Fiscal</option>
@@ -344,11 +344,11 @@ export const Contact: React.FC = () => {
                   </label>
                   <textarea
                     name="message"
-                    rows={4}
+                    rows={3}
                     value={formData.message}
                     onChange={handleChange}
                     placeholder="Conte-nos brevemente sobre sua necessidade..."
-                    className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-[#0B63CE] transition-all resize-none"
+                    className="w-full px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl bg-slate-50 border border-slate-200 text-base sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-[#0B63CE] transition-all resize-none"
                   />
                 </div>
 
@@ -356,7 +356,7 @@ export const Contact: React.FC = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full py-4 px-6 bg-[#0B63CE] hover:bg-[#0952ae] text-white font-bold text-sm rounded-xl shadow-lg shadow-[#0B63CE]/25 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70"
+                  className="w-full py-3.5 sm:py-4 px-6 bg-[#0B63CE] hover:bg-[#0952ae] text-white font-bold text-sm rounded-xl shadow-lg shadow-[#0B63CE]/25 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70 active:scale-98"
                 >
                   {isSubmitting ? (
                     <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
