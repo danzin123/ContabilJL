@@ -1,8 +1,9 @@
-import React from 'react';
-import { Hero3DCanvas } from './Hero3DCanvas';
+import React, { Suspense, lazy } from 'react';
 import { COMPANY_INFO } from '../data/content';
 import whatsappImg from '../assets/whatsapp.png';
 import { ArrowRight, MapPin, CheckCircle2 } from 'lucide-react';
+
+const Hero3DCanvas = lazy(() => import('./Hero3DCanvas'));
 
 interface HeroProps {
   onOpenQuoteModal: (serviceName?: string) => void;
@@ -75,9 +76,15 @@ export const Hero: React.FC<HeroProps> = ({ onOpenQuoteModal }) => {
 
           </div>
 
-          {/* Right Column 3D Scene */}
+          {/* Right Column 3D Scene (Lazy Loaded) */}
           <div className="lg:col-span-6 relative">
-            <Hero3DCanvas />
+            <Suspense fallback={
+              <div className="w-full h-[280px] xs:h-[340px] sm:h-[450px] lg:h-[540px] flex items-center justify-center">
+                <div className="w-40 h-40 rounded-full bg-[#0B63CE]/5 animate-pulse" />
+              </div>
+            }>
+              <Hero3DCanvas />
+            </Suspense>
           </div>
 
         </div>

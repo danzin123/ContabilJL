@@ -21,5 +21,18 @@ export default defineConfig(() => {
         interval: 300,
       },
     },
+    build: {
+      cssMinify: true,
+      minify: 'esbuild',
+      rollupOptions: {
+        output: {
+          manualChunks: {
+            'vendor-react': ['react', 'react-dom'],
+            'vendor-icons': ['lucide-react'],
+            'vendor-three': ['three'],
+          },
+        },
+      },
+    },
   };
 });

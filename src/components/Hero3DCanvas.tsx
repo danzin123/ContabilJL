@@ -18,11 +18,15 @@ export const Hero3DCanvas: React.FC = () => {
     const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
     camera.position.set(0, 0, 14);
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    const renderer = new THREE.WebGLRenderer({
+      antialias: true,
+      alpha: true,
+      powerPreference: 'low-power',
+      precision: 'mediump',
+    });
     renderer.setSize(width, height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.shadowMap.enabled = true;
-    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+    renderer.shadowMap.enabled = false; // Disable expensive dynamic shadows
 
     container.appendChild(renderer.domElement);
 
@@ -234,11 +238,13 @@ export const Hero3DCanvas: React.FC = () => {
 
     window.addEventListener('resize', handleResize);
 
-    // Animation Loop
+    // Animation Loop with Visibility Pause
     let clock = new THREE.Clock();
     let reqId: number;
+    let isVisible = true;
 
     const animate = () => {
+      if (!isVisible) return;
       reqId = requestAnimationFrame(animate);
       const elapsedTime = clock.getElapsedTime();
 
@@ -263,7 +269,6 @@ export const Hero3DCanvas: React.FC = () => {
 
       // Animate bar chart pulsing height
       barMeshes.forEach((bar, idx) => {
-        const baseH = barHeights[idx];
         const scale = 1 + Math.sin(elapsedTime * 1.5 + idx * 0.8) * 0.05;
         bar.scale.set(1, scale, 1);
       });
@@ -274,9 +279,20 @@ export const Hero3DCanvas: React.FC = () => {
       renderer.render(scene, camera);
     };
 
-    animate();
+    const observer = new IntersectionObserver(([entry]) => {
+      isVisible = entry.isIntersecting;
+      if (isVisible) {
+        cancelAnimationFrame(reqId);
+        animate();
+      } else {
+        cancelAnimationFrame(reqId);
+      }
+    }, { threshold: 0.05 });
+
+    observer.observe(container);
 
     return () => {
+      observer.disconnect();
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('resize', handleResize);
       cancelAnimationFrame(reqId);
@@ -290,8 +306,10 @@ export const Hero3DCanvas: React.FC = () => {
   return (
     <div className="relative w-full h-[280px] xs:h-[340px] sm:h-[450px] lg:h-[540px] flex items-center justify-center select-none touch-pan-y">
       {/* Background ambient glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 sm:w-96 sm:h-96 bg-[#0B63CE]/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 sm:w-96 sm:h-96 bg-[#0B63CE]/10 rounded-full blur-2xl pointer-events-none" />
       <div ref={mountRef} className="w-full h-full cursor-grab active:cursor-grabbing touch-pan-y" />
     </div>
   );
 };
+
+export default Hero3DCanvas;

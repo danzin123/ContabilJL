@@ -1,7 +1,8 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, Suspense, lazy } from 'react';
 import { DIFFERENTIALS } from '../data/content';
-import { Growth3DGraphic } from './Growth3DGraphic';
 import { Building, Award, Clock, HeartHandshake, ShieldCheck, Zap, Lock, Sparkles, TrendingUp } from 'lucide-react';
+
+const Growth3DGraphic = lazy(() => import('./Growth3DGraphic'));
 
 export const Differentials: React.FC = () => {
   const [inView, setInView] = useState(false);
@@ -132,10 +133,16 @@ export const Differentials: React.FC = () => {
             </div>
           </div>
 
-          {/* Right Column: 3D Growth Scene */}
+          {/* Right Column: 3D Growth Scene (Lazy Loaded) */}
           <div className="lg:col-span-5 relative">
             <div className="glass-card p-4 rounded-3xl relative">
-              <Growth3DGraphic />
+              <Suspense fallback={
+                <div className="w-full h-[260px] xs:h-[300px] sm:h-[380px] lg:h-[420px] flex items-center justify-center">
+                  <div className="w-32 h-32 rounded-full bg-[#0B63CE]/5 animate-pulse" />
+                </div>
+              }>
+                <Growth3DGraphic />
+              </Suspense>
               <div className="absolute top-6 right-6 bg-white/90 backdrop-blur-md px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl border border-slate-200 text-xs font-bold text-[#0B63CE] shadow-sm flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-[#0B63CE] animate-pulse" />
                 <span>Crescimento Sustentável</span>

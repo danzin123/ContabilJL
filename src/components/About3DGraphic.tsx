@@ -15,9 +15,14 @@ export const About3DGraphic: React.FC = () => {
     const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
     camera.position.set(0, 0, 9);
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    const renderer = new THREE.WebGLRenderer({
+      antialias: true,
+      alpha: true,
+      powerPreference: 'low-power',
+      precision: 'mediump',
+    });
     renderer.setSize(width, height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
 
     container.appendChild(renderer.domElement);
 
@@ -129,8 +134,10 @@ export const About3DGraphic: React.FC = () => {
 
     let clock = new THREE.Clock();
     let reqId: number;
+    let isVisible = false;
 
     const animate = () => {
+      if (!isVisible) return;
       reqId = requestAnimationFrame(animate);
       const elapsedTime = clock.getElapsedTime();
 
@@ -151,9 +158,20 @@ export const About3DGraphic: React.FC = () => {
       renderer.render(scene, camera);
     };
 
-    animate();
+    const observer = new IntersectionObserver(([entry]) => {
+      isVisible = entry.isIntersecting;
+      if (isVisible) {
+        cancelAnimationFrame(reqId);
+        animate();
+      } else {
+        cancelAnimationFrame(reqId);
+      }
+    }, { threshold: 0.05 });
+
+    observer.observe(container);
 
     return () => {
+      observer.disconnect();
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('resize', handleResize);
       cancelAnimationFrame(reqId);
@@ -171,3 +189,5 @@ export const About3DGraphic: React.FC = () => {
     </div>
   );
 };
+
+export default About3DGraphic;

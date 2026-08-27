@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { COMPANY_INFO } from '../data/content';
 import logoImg from '../assets/logo.png';
-import confetti from 'canvas-confetti';
-import { X, Send, CheckCircle2, MessageCircle, AlertCircle } from 'lucide-react';
+import whatsappImg from '../assets/whatsapp.png';
+import { X, Send, CheckCircle2, AlertCircle } from 'lucide-react';
 
 interface QuoteModalProps {
   isOpen: boolean;
@@ -33,11 +33,16 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({ isOpen, onClose, prefill
 
     setIsSubmitting(true);
 
-    setTimeout(() => {
+    setTimeout(async () => {
       setIsSubmitting(false);
       setIsSuccess(true);
-      confetti({ particleCount: 70, spread: 60 });
-    }, 800);
+      try {
+        const confetti = (await import('canvas-confetti')).default;
+        confetti({ particleCount: 60, spread: 50 });
+      } catch (err) {
+        // Fallback gracefully
+      }
+    }, 600);
   };
 
   const handleWhatsAppRedirect = () => {

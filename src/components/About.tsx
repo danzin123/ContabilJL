@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import { About3DGraphic } from './About3DGraphic';
+import React, { useState, Suspense, lazy } from 'react';
 import { INSTITUTIONAL_VALUES, COMPANY_INFO } from '../data/content';
 import { Shield, UserCheck, Zap, Lock, MapPin, CheckCircle } from 'lucide-react';
+
+const About3DGraphic = lazy(() => import('./About3DGraphic'));
 
 export const About: React.FC = () => {
   const [activeValueIndex, setActiveValueIndex] = useState(0);
@@ -39,7 +40,13 @@ export const About: React.FC = () => {
           {/* Left: 3D Graphic */}
           <div className="lg:col-span-5 relative order-2 lg:order-1">
             <div className="glass-card p-4 rounded-3xl relative">
-              <About3DGraphic />
+              <Suspense fallback={
+                <div className="w-full h-[260px] xs:h-[300px] sm:h-[380px] lg:h-[420px] flex items-center justify-center">
+                  <div className="w-32 h-32 rounded-full bg-[#0B63CE]/5 animate-pulse" />
+                </div>
+              }>
+                <About3DGraphic />
+              </Suspense>
               <div className="absolute bottom-6 left-6 right-6 bg-white/90 backdrop-blur-md p-4 rounded-2xl border border-slate-200/80 shadow-lg text-center">
                 <span className="text-xs font-extrabold text-[#0B63CE] uppercase tracking-wider block">
                   Presença Regional

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { COMPANY_INFO } from '../data/content';
 import { ContactFormData } from '../types';
 import whatsappImg from '../assets/whatsapp.png';
-import confetti from 'canvas-confetti';
 import { MapPin, Phone, Mail, Clock, Send, CheckCircle2, Navigation, AlertCircle, Instagram } from 'lucide-react';
 
 export const Contact: React.FC = () => {
@@ -34,17 +33,21 @@ export const Contact: React.FC = () => {
 
     setIsSubmitting(true);
 
-    setTimeout(() => {
+    setTimeout(async () => {
       setIsSubmitting(false);
       setIsSubmitted(true);
 
-      // Trigger celebratory confetti
-      confetti({
-        particleCount: 80,
-        spread: 70,
-        origin: { y: 0.6 }
-      });
-    }, 1000);
+      try {
+        const confetti = (await import('canvas-confetti')).default;
+        confetti({
+          particleCount: 60,
+          spread: 60,
+          origin: { y: 0.6 }
+        });
+      } catch (err) {
+        // Fallback gracefully
+      }
+    }, 600);
   };
 
   const handleSendToWhatsApp = () => {
