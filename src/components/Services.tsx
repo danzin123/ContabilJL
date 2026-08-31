@@ -46,16 +46,13 @@ export const Services: React.FC<ServicesProps> = ({ onOpenQuoteModal }) => {
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12 space-y-2.5 sm:space-y-3">
           <span className="text-xs font-bold uppercase tracking-widest text-[#0B63CE] bg-[#0B63CE]/10 px-3.5 py-1.5 rounded-full">
-            Especialidades & Serviços
+            Especialidades Contábeis
           </span>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight leading-snug">
-            Soluções Completas para Cada{' '}
-            <span className="font-serif italic font-normal text-[#0B63CE]">
-              Etapa da Sua Empresa.
-            </span>
+            Soluções Completas para Cada Etapa do Seu Negócio
           </h2>
           <p className="text-slate-600 text-sm sm:text-lg">
-            Assessoria contábil, tributária e societária sob medida para empresas em Bragança Paulista e região.
+            Apoio contábil, tributário e fiscal sob medida para empresas em Bragança Paulista e região.
           </p>
         </div>
 

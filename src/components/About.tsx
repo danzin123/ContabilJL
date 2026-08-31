@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import { AboutInstitutionalMockup } from './AboutInstitutionalMockup';
+import React, { useState, Suspense, lazy } from 'react';
 import { INSTITUTIONAL_VALUES, COMPANY_INFO } from '../data/content';
 import { Shield, UserCheck, Zap, Lock, MapPin, CheckCircle } from 'lucide-react';
+
+const About3DGraphic = lazy(() => import('./About3DGraphic'));
 
 export const About: React.FC = () => {
   const [activeValueIndex, setActiveValueIndex] = useState(0);
@@ -23,13 +24,10 @@ export const About: React.FC = () => {
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-16 space-y-2.5 sm:space-y-3">
           <span className="text-xs font-bold uppercase tracking-widest text-[#0B63CE] bg-[#0B63CE]/10 px-3.5 py-1.5 rounded-full">
-            Institucional & Credibilidade
+            Sobre o Escritório
           </span>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight leading-snug">
-            Tradição, Tecnologia e{' '}
-            <span className="font-serif italic font-normal text-[#0B63CE]">
-              Segurança Jurídica.
-            </span>
+            Tradição, Tecnologia e Segurança para o seu Negócio
           </h2>
           <p className="text-slate-600 text-sm sm:text-lg">
             Conheça a história e os pilares do Escritório Contábil JL Oliveira em Bragança Paulista - SP.
@@ -39,9 +37,25 @@ export const About: React.FC = () => {
         {/* Split Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           
-          {/* Left: Real Institutional Dossier Mockup */}
+          {/* Left: 3D Graphic */}
           <div className="lg:col-span-5 relative order-2 lg:order-1">
-            <AboutInstitutionalMockup />
+            <div className="glass-card p-4 rounded-3xl relative">
+              <Suspense fallback={
+                <div className="w-full h-[260px] xs:h-[300px] sm:h-[380px] lg:h-[420px] flex items-center justify-center">
+                  <div className="w-32 h-32 rounded-full bg-[#0B63CE]/5 animate-pulse" />
+                </div>
+              }>
+                <About3DGraphic />
+              </Suspense>
+              <div className="absolute bottom-6 left-6 right-6 bg-white/90 backdrop-blur-md p-4 rounded-2xl border border-slate-200/80 shadow-lg text-center">
+                <span className="text-xs font-extrabold text-[#0B63CE] uppercase tracking-wider block">
+                  Presença Regional
+                </span>
+                <p className="text-sm font-bold text-slate-800 mt-1">
+                  Atendimento em Bragança Paulista, Atibaia, Itatiba e Região
+                </p>
+              </div>
+            </div>
           </div>
 
           {/* Right: Institutional Text & Values */}
