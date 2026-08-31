@@ -29,12 +29,15 @@ export const CTA: React.FC<CTAProps> = ({ onOpenQuoteModal }) => {
 
             {/* Title */}
             <h2 className="text-2xl xs:text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight leading-snug sm:leading-tight text-white drop-shadow-xs">
-              Vamos cuidar da sua contabilidade enquanto você faz seu negócio crescer.
+              Cuidamos da sua contabilidade enquanto você{' '}
+              <span className="font-serif italic font-normal text-cyan-200 block sm:inline">
+                faz seu negócio crescer.
+              </span>
             </h2>
 
             {/* Subtitle */}
             <p className="text-blue-100 text-sm sm:text-lg max-w-2xl mx-auto font-normal sm:font-medium leading-relaxed">
-              Sua empresa livre de burocracias, com planejamento tributário estratégico e assessoria constante de contadores dedicados.
+              Sua empresa livre de burocracias, com planejamento tributário estratégico e assessoria constante de contadores dedicados em Bragança Paulista.
             </p>
 
             {/* Buttons */}

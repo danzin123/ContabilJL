@@ -46,13 +46,16 @@ export const Services: React.FC<ServicesProps> = ({ onOpenQuoteModal }) => {
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-12 space-y-2.5 sm:space-y-3">
           <span className="text-xs font-bold uppercase tracking-widest text-[#0B63CE] bg-[#0B63CE]/10 px-3.5 py-1.5 rounded-full">
-            Especialidades Contábeis
+            Especialidades & Serviços
           </span>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight leading-snug">
-            Soluções Completas para Cada Etapa do Seu Negócio
+            Soluções Completas para Cada{' '}
+            <span className="font-serif italic font-normal text-[#0B63CE]">
+              Etapa da Sua Empresa.
+            </span>
           </h2>
           <p className="text-slate-600 text-sm sm:text-lg">
-            Apoio contábil, tributário e fiscal sob medida para empresas em Bragança Paulista e região.
+            Assessoria contábil, tributária e societária sob medida para empresas em Bragança Paulista e região.
           </p>
         </div>
 
@@ -79,13 +82,13 @@ export const Services: React.FC<ServicesProps> = ({ onOpenQuoteModal }) => {
             <div
               key={service.id}
               onClick={() => setActiveModalService(service)}
-              className="group glass-card p-5 sm:p-6 rounded-3xl flex flex-col justify-between transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl active:scale-98 cursor-pointer relative overflow-hidden"
+              className="group luxury-card p-5 sm:p-6 rounded-3xl flex flex-col justify-between transition-all duration-300 hover:-translate-y-1.5 active:scale-98 cursor-pointer relative overflow-hidden"
             >
               {/* Subtle top indicator bar */}
               <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#0B63CE] to-[#4FA8FF] opacity-0 group-hover:opacity-100 transition-opacity" />
 
               <div className="space-y-3.5 sm:space-y-4">
-                {/* Micro 3D Icon Container */}
+                {/* Micro Icon Container */}
                 <div className="w-11 h-11 sm:w-12 sm:h-12 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-center group-hover:bg-[#0B63CE]/10 group-hover:border-[#0B63CE]/30 transition-colors shadow-xs">
                   {renderServiceIcon(service.iconName)}
                 </div>
@@ -101,7 +104,7 @@ export const Services: React.FC<ServicesProps> = ({ onOpenQuoteModal }) => {
 
               {/* Action Link */}
               <div className="pt-4 sm:pt-6 mt-3 sm:mt-4 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-[#0B63CE] group-hover:translate-x-0.5 transition-transform">
-                <span>Ver Detalhes</span>
+                <span>Ver Detalhes do Serviço</span>
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </div>
             </div>

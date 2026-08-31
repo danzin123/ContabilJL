@@ -1,8 +1,7 @@
-import React, { useEffect, useState, useRef, Suspense, lazy } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { DIFFERENTIALS } from '../data/content';
+import { DifferentialsPerformanceMockup } from './DifferentialsPerformanceMockup';
 import { Building, Award, Clock, HeartHandshake, ShieldCheck, Zap, Lock, Sparkles, TrendingUp } from 'lucide-react';
-
-const Growth3DGraphic = lazy(() => import('./Growth3DGraphic'));
 
 export const Differentials: React.FC = () => {
   const [inView, setInView] = useState(false);
@@ -46,7 +45,10 @@ export const Differentials: React.FC = () => {
             Por Que Escolher a JL Oliveira
           </span>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight leading-snug">
-            Excelência Comprovada em Números e Resultados
+            Excelência Comprovada em{' '}
+            <span className="font-serif italic font-normal text-[#0B63CE]">
+              Economia e Resultados.
+            </span>
           </h2>
           <p className="text-slate-600 text-sm sm:text-lg">
             Combinamos solidez técnica, inovação contínua e foco absoluto na segurança fiscal dos nossos clientes.
@@ -58,7 +60,7 @@ export const Differentials: React.FC = () => {
           {DIFFERENTIALS.map((item) => (
             <div
               key={item.id}
-              className="glass-card p-4 sm:p-6 rounded-2xl sm:rounded-3xl text-center space-y-2 sm:space-y-3 hover:-translate-y-1 transition-transform"
+              className="luxury-card p-4 sm:p-6 rounded-2xl sm:rounded-3xl text-center space-y-2 sm:space-y-3"
             >
               <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-slate-100 flex items-center justify-center mx-auto">
                 {getMetricIcon(item.iconName)}
@@ -79,17 +81,17 @@ export const Differentials: React.FC = () => {
           ))}
         </div>
 
-        {/* Split Grid: Value Highlights + 3D Growth Graphic */}
+        {/* Split Grid: Value Highlights + Performance Mockup */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 items-center">
           
           {/* Left Column Key Differentials */}
           <div className="lg:col-span-7 space-y-4 sm:space-y-6 text-left">
             <h3 className="text-xl sm:text-2xl font-bold text-slate-900 leading-snug">
-              O padrão de agência corporativa que sua empresa merece:
+              O padrão de assessoria contábil que sua empresa merece:
             </h3>
 
             <div className="space-y-3 sm:space-y-4">
-              <div className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200 shadow-xs flex items-start gap-3.5 sm:gap-4">
+              <div className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200 shadow-xs flex items-start gap-3.5 sm:gap-4 hover:border-[#0B63CE]/40 transition-colors">
                 <div className="p-2.5 sm:p-3 bg-[#0B63CE]/10 rounded-xl flex-shrink-0">
                   <TrendingUp className="w-5 h-5 sm:w-6 sm:h-6 text-[#0B63CE]" />
                 </div>
@@ -103,7 +105,7 @@ export const Differentials: React.FC = () => {
                 </div>
               </div>
 
-              <div className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200 shadow-xs flex items-start gap-3.5 sm:gap-4">
+              <div className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200 shadow-xs flex items-start gap-3.5 sm:gap-4 hover:border-[#0B63CE]/40 transition-colors">
                 <div className="p-2.5 sm:p-3 bg-[#0B63CE]/10 rounded-xl flex-shrink-0">
                   <Zap className="w-5 h-5 sm:w-6 sm:h-6 text-[#0B63CE]" />
                 </div>
@@ -117,7 +119,7 @@ export const Differentials: React.FC = () => {
                 </div>
               </div>
 
-              <div className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200 shadow-xs flex items-start gap-3.5 sm:gap-4">
+              <div className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200 shadow-xs flex items-start gap-3.5 sm:gap-4 hover:border-[#0B63CE]/40 transition-colors">
                 <div className="p-2.5 sm:p-3 bg-[#0B63CE]/10 rounded-xl flex-shrink-0">
                   <Lock className="w-5 h-5 sm:w-6 sm:h-6 text-[#0B63CE]" />
                 </div>
@@ -133,21 +135,9 @@ export const Differentials: React.FC = () => {
             </div>
           </div>
 
-          {/* Right Column: 3D Growth Scene (Lazy Loaded) */}
+          {/* Right Column: Real Performance Mockup */}
           <div className="lg:col-span-5 relative">
-            <div className="glass-card p-4 rounded-3xl relative">
-              <Suspense fallback={
-                <div className="w-full h-[260px] xs:h-[300px] sm:h-[380px] lg:h-[420px] flex items-center justify-center">
-                  <div className="w-32 h-32 rounded-full bg-[#0B63CE]/5 animate-pulse" />
-                </div>
-              }>
-                <Growth3DGraphic />
-              </Suspense>
-              <div className="absolute top-6 right-6 bg-white/90 backdrop-blur-md px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl border border-slate-200 text-xs font-bold text-[#0B63CE] shadow-sm flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-[#0B63CE] animate-pulse" />
-                <span>Crescimento Sustentável</span>
-              </div>
-            </div>
+            <DifferentialsPerformanceMockup />
           </div>
 
         </div>

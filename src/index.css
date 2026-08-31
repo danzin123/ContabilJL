@@ -3,12 +3,14 @@
 @layer base {
   :root {
     --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-    --font-heading: 'Outfit', 'Plus Jakarta Sans', system-ui, sans-serif;
+    --font-heading: 'Plus Jakarta Sans', system-ui, sans-serif;
+    --font-serif: 'Playfair Display', Georgia, serif;
+    --font-editorial: 'Instrument Serif', Georgia, serif;
     --color-primary: #FFFFFF;
     --color-secondary: #0B63CE;
     --color-accent: #4FA8FF;
-    --color-dark: #202124;
-    --color-muted: #5F6368;
+    --color-dark: #0F172A;
+    --color-muted: #475569;
     --color-bg-alt: #F8FAFC;
   }
 
@@ -42,6 +44,14 @@
   }
 }
 
+.font-serif {
+  font-family: 'Playfair Display', Georgia, serif !important;
+}
+
+.font-editorial {
+  font-family: 'Instrument Serif', Georgia, serif !important;
+}
+
 /* Hide scrollbar for clean mobile horizontal swipe */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
@@ -51,30 +61,69 @@
   scrollbar-width: none;
 }
 
-/* Glassmorphism subtle details */
-.glass-panel {
-  background: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(11, 99, 206, 0.08);
+/* Luxury card with subtle metallic border shimmer */
+.luxury-card {
+  position: relative;
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 1.5rem;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04), 0 2px 6px -1px rgba(15, 23, 42, 0.02);
 }
 
-.glass-card {
-  background: rgba(255, 255, 255, 0.9);
+.luxury-card:hover {
+  border-color: #0B63CE;
+  box-shadow: 0 20px 35px -10px rgba(11, 99, 206, 0.12), 0 0 0 1px rgba(11, 99, 206, 0.15);
+  transform: translateY(-2px);
+}
+
+/* Glassmorphism subtle details */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.85);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(226, 232, 240, 0.8);
-  box-shadow: 0 10px 30px -10px rgba(11, 99, 206, 0.05);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  box-shadow: 0 10px 30px -10px rgba(15, 23, 42, 0.05);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .glass-card:hover {
-  border-color: rgba(79, 168, 255, 0.3);
-  box-shadow: 0 20px 40px -15px rgba(11, 99, 206, 0.12);
+  border-color: rgba(11, 99, 206, 0.3);
+  box-shadow: 0 20px 40px -15px rgba(11, 99, 206, 0.12), 0 0 0 1px rgba(11, 99, 206, 0.1);
+  transform: translateY(-2px);
 }
 
-/* Subtle glow effects */
-.blue-glow {
-  box-shadow: 0 0 40px -10px rgba(79, 168, 255, 0.3);
+/* Technical Precision Blueprint Grid */
+.bg-blueprint {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(11, 99, 206, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(11, 99, 206, 0.04) 1px, transparent 1px);
+}
+
+/* Rotating Authenticity Seal */
+@keyframes spinSlow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spinSlow 20s linear infinite;
+}
+
+.animate-spin-reverse-slow {
+  animation: spinSlow 25s linear infinite reverse;
 }
 
 /* Custom scrollbar */
