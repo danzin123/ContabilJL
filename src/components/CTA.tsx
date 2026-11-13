@@ -9,7 +9,7 @@ interface CTAProps {
 
 export const CTA: React.FC<CTAProps> = ({ onOpenQuoteModal }) => {
   return (
-    <section className="py-12 sm:py-16 lg:py-20 bg-transparent relative overflow-hidden">
+    <section className="cta-section py-12 sm:py-16 lg:py-20 bg-transparent relative overflow-hidden">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Boxed High-Impact CTA Card */}

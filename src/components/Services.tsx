@@ -61,6 +61,7 @@ export const Services: React.FC<ServicesProps> = ({ onOpenQuoteModal }) => {
           {categories.map((cat) => (
             <button
               key={cat.id}
+              aria-pressed={selectedCategory === cat.id}
               onClick={() => setSelectedCategory(cat.id)}
               className={`px-4 sm:px-5 py-2.5 text-xs sm:text-sm font-bold rounded-xl transition-all cursor-pointer whitespace-nowrap flex-shrink-0 active:scale-95 ${
                 selectedCategory === cat.id
@@ -74,13 +75,15 @@ export const Services: React.FC<ServicesProps> = ({ onOpenQuoteModal }) => {
         </div>
 
         {/* Services Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+        <div className="service-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6" key={selectedCategory}>
           {filteredServices.map((service) => (
-            <div
+            <button
+              type="button"
               key={service.id}
               onClick={() => setActiveModalService(service)}
-              className="group luxury-card p-5 sm:p-6 rounded-3xl flex flex-col justify-between transition-all duration-300 hover:-translate-y-1.5 active:scale-98 cursor-pointer relative overflow-hidden"
+              className="service-card service-card-enter group luxury-card flex flex-col justify-between transition-all duration-300 active:scale-98 cursor-pointer relative overflow-hidden"
             >
+              <span className="service-number" aria-hidden="true">{String(SERVICES_LIST.indexOf(service) + 1).padStart(2, '0')}</span>
               {/* Subtle top indicator bar */}
               <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#0B63CE] to-[#4FA8FF] opacity-0 group-hover:opacity-100 transition-opacity" />
 
@@ -104,7 +107,7 @@ export const Services: React.FC<ServicesProps> = ({ onOpenQuoteModal }) => {
                 <span>Ver Detalhes do Serviço</span>
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </div>
-            </div>
+            </button>
           ))}
         </div>
 

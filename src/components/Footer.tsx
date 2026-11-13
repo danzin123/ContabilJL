@@ -81,7 +81,7 @@ export const Footer: React.FC = () => {
               {['Início', 'Sobre', 'Serviços', 'Diferenciais', 'Simulador', 'Contato'].map((item) => (
                 <li key={item}>
                   <a
-                    href={`#${item.toLowerCase()}`}
+                    href={`#${item.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '')}`}
                     className="text-slate-400 hover:text-white transition-colors block py-0.5"
                   >
                     {item}

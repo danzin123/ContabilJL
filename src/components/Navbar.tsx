@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { COMPANY_INFO } from '../data/content';
 import logoImg from '../assets/logo.png';
 import whatsappImg from '../assets/whatsapp.png';
@@ -11,6 +11,25 @@ interface NavbarProps {
 export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('inicio');
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => { if (entry.isIntersecting) setActiveSection(entry.target.id); });
+    }, { rootMargin: '-15% 0px -65% 0px' });
+    document.querySelectorAll('main section[id]').forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+    const onEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') { setMobileMenuOpen(false); menuButtonRef.current?.focus(); }
+    };
+    window.addEventListener('keydown', onEscape);
+    return () => window.removeEventListener('keydown', onEscape);
+  }, [mobileMenuOpen]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -21,7 +40,8 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -38,7 +58,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
     setMobileMenuOpen(false);
     const element = document.querySelector(href);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
     }
   };
 
@@ -59,7 +79,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
               e.preventDefault();
               handleNavClick('#inicio');
             }}
-            className="flex items-center gap-3 group focus:outline-none"
+            className="flex items-center gap-3 group"
           >
             <img
               src={logoImg}
@@ -82,6 +102,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
               <a
                 key={link.name}
                 href={link.href}
+                aria-current={activeSection === link.href.slice(1) ? 'location' : undefined}
                 onClick={(e) => {
                   e.preventDefault();
                   handleNavClick(link.href);
@@ -127,9 +148,12 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
             </a>
 
             <button
+              ref={menuButtonRef}
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="p-2 text-slate-700 hover:text-[#0B63CE] hover:bg-slate-100 rounded-lg transition-colors"
-              aria-label="Toggle menu"
+              aria-label={mobileMenuOpen ? 'Fechar menu' : 'Abrir menu'}
+              aria-expanded={mobileMenuOpen}
+              aria-controls="mobile-navigation"
             >
               {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
             </button>
@@ -148,7 +172,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenQuoteModal }) => {
           />
 
           {/* Drawer */}
-          <div className="relative z-50 lg:hidden bg-white/98 backdrop-blur-xl border-b border-slate-200 px-4 pt-3 pb-6 shadow-2xl animate-in slide-in-from-top duration-200">
+          <div id="mobile-navigation" className="mobile-drawer relative z-50 lg:hidden bg-white/98 backdrop-blur-xl border-b border-slate-200 px-4 pt-3 pb-6 shadow-2xl">
             <nav className="flex flex-col gap-1 mb-5">
               {navLinks.map((link) => (
                 <a

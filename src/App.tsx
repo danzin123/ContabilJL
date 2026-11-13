@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { MotionConfig } from 'motion/react';
+import { PageMotion } from './components/PageMotion';
 import { AuroraBackground } from './components/AuroraBackground';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
@@ -22,7 +24,10 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen relative bg-transparent text-[#202124] flex flex-col font-sans selection:bg-[#0B63CE] selection:text-white">
+    <MotionConfig reducedMotion="user">
+    <div className="site-shell min-h-screen relative bg-transparent text-[#202124] flex flex-col font-sans selection:bg-[#0B63CE] selection:text-white">
+      <a href="#conteudo" className="skip-link">Pular para o conteúdo</a>
+      <PageMotion />
       {/* Living Ambient Aurora Background */}
       <AuroraBackground />
 
@@ -30,7 +35,7 @@ export default function App() {
       <Navbar onOpenQuoteModal={handleOpenQuoteModal} />
 
       {/* Main Content Sections */}
-      <main className="flex-grow">
+      <main id="conteudo" className="flex-grow" tabIndex={-1}>
         {/* Hero Section */}
         <Hero onOpenQuoteModal={handleOpenQuoteModal} />
 
@@ -66,5 +71,6 @@ export default function App() {
         prefilledService={prefilledService}
       />
     </div>
+    </MotionConfig>
   );
 }

@@ -79,10 +79,12 @@ export const About: React.FC = () => {
               </h4>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {INSTITUTIONAL_VALUES.map((item, idx) => (
-                  <div
+                  <button
+                    type="button"
+                    aria-pressed={activeValueIndex === idx}
                     key={item.title}
                     onClick={() => setActiveValueIndex(idx)}
-                    className={`p-4 rounded-2xl border transition-all cursor-pointer ${
+                    className={`text-left p-4 rounded-2xl border transition-all cursor-pointer ${
                       activeValueIndex === idx
                         ? 'bg-white border-[#0B63CE] shadow-md ring-2 ring-[#0B63CE]/20'
                         : 'bg-white/60 border-slate-200 hover:bg-white hover:border-slate-300'
@@ -97,7 +99,7 @@ export const About: React.FC = () => {
                         <span className="text-xs text-slate-500">{item.subtitle}</span>
                       </div>
                     </div>
-                  </div>
+                  </button>
                 ))}
               </div>
 

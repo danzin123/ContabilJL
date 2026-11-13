@@ -1,4 +1,5 @@
 import React from 'react';
+import { useDialog } from '../utils/useDialog';
 import { Service } from '../types';
 import { COMPANY_INFO } from '../data/content';
 import whatsappImg from '../assets/whatsapp.png';
@@ -11,6 +12,7 @@ interface ServiceModalProps {
 }
 
 export const ServiceModal: React.FC<ServiceModalProps> = ({ service, onClose, onRequestQuote }) => {
+  const dialogRef = useDialog(Boolean(service), onClose);
   if (!service) return null;
 
   const renderIcon = (name: string) => {
@@ -29,8 +31,8 @@ export const ServiceModal: React.FC<ServiceModalProps> = ({ service, onClose, on
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-900/60 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="relative w-full max-w-2xl bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-100 max-h-[88vh] sm:max-h-[90vh] flex flex-col">
+    <div className="dialog-backdrop fixed inset-0 z-[80] flex items-center justify-center p-3 sm:p-4 bg-slate-900/60 backdrop-blur-sm">
+      <div ref={dialogRef} role="dialog" aria-modal="true" aria-label={service.title} className="dialog-panel relative w-full max-w-2xl bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-100 max-h-[88vh] sm:max-h-[90vh] flex flex-col">
         
         {/* Header */}
         <div className="p-4 sm:p-6 bg-slate-50 border-b border-slate-100 flex items-start justify-between gap-3">

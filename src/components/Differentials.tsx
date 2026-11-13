@@ -58,13 +58,13 @@ export const Differentials: React.FC = () => {
           {DIFFERENTIALS.map((item) => (
             <div
               key={item.id}
-              className="glass-card p-4 sm:p-6 rounded-2xl sm:rounded-3xl text-center space-y-2 sm:space-y-3 hover:-translate-y-1 transition-transform"
+              className="metric-card glass-card p-4 sm:p-6 rounded-2xl sm:rounded-3xl text-center space-y-2 sm:space-y-3 hover:-translate-y-1 transition-transform"
             >
               <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-slate-100 flex items-center justify-center mx-auto">
                 {getMetricIcon(item.iconName)}
               </div>
 
-              <div className="text-2xl xs:text-3xl sm:text-4xl font-black text-[#0B63CE] tracking-tight">
+              <div className="metric-value text-2xl xs:text-3xl sm:text-4xl font-black text-[#0B63CE] tracking-tight">
                 {item.metric}
               </div>
 
@@ -89,7 +89,7 @@ export const Differentials: React.FC = () => {
             </h3>
 
             <div className="space-y-3 sm:space-y-4">
-              <div className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200 shadow-xs flex items-start gap-3.5 sm:gap-4">
+              <div className="differential-feature p-4 sm:p-5 rounded-2xl bg-white border border-slate-200 shadow-xs flex items-start gap-3.5 sm:gap-4">
                 <div className="p-2.5 sm:p-3 bg-[#0B63CE]/10 rounded-xl flex-shrink-0">
                   <TrendingUp className="w-5 h-5 sm:w-6 sm:h-6 text-[#0B63CE]" />
                 </div>
@@ -103,7 +103,7 @@ export const Differentials: React.FC = () => {
                 </div>
               </div>
 
-              <div className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200 shadow-xs flex items-start gap-3.5 sm:gap-4">
+              <div className="differential-feature p-4 sm:p-5 rounded-2xl bg-white border border-slate-200 shadow-xs flex items-start gap-3.5 sm:gap-4">
                 <div className="p-2.5 sm:p-3 bg-[#0B63CE]/10 rounded-xl flex-shrink-0">
                   <Zap className="w-5 h-5 sm:w-6 sm:h-6 text-[#0B63CE]" />
                 </div>
@@ -117,7 +117,7 @@ export const Differentials: React.FC = () => {
                 </div>
               </div>
 
-              <div className="p-4 sm:p-5 rounded-2xl bg-white border border-slate-200 shadow-xs flex items-start gap-3.5 sm:gap-4">
+              <div className="differential-feature p-4 sm:p-5 rounded-2xl bg-white border border-slate-200 shadow-xs flex items-start gap-3.5 sm:gap-4">
                 <div className="p-2.5 sm:p-3 bg-[#0B63CE]/10 rounded-xl flex-shrink-0">
                   <Lock className="w-5 h-5 sm:w-6 sm:h-6 text-[#0B63CE]" />
                 </div>

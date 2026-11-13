@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDialog } from '../utils/useDialog';
 import { COMPANY_INFO } from '../data/content';
 import logoImg from '../assets/logo.png';
 import whatsappImg from '../assets/whatsapp.png';
@@ -10,7 +11,14 @@ interface QuoteModalProps {
   prefilledService?: string;
 }
 
+const quoteServices = [
+  'Abertura de Empresas', 'Troca de Contador / Migração', 'Escrita Fiscal & Impostos',
+  'Departamento Pessoal & Folha', 'Planejamento Tributário', 'Imposto de Renda (IRPF/IRPJ)',
+  'Consultoria Contábil', 'Regularização de Empresas',
+];
+
 export const QuoteModal: React.FC<QuoteModalProps> = ({ isOpen, onClose, prefilledService }) => {
+  const dialogRef = useDialog(isOpen, onClose);
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
@@ -21,6 +29,14 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({ isOpen, onClose, prefill
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+
+  useEffect(() => {
+    if (isOpen) {
+      setService(prefilledService || 'Abertura de Empresas');
+      setIsSuccess(false);
+      setErrorMessage('');
+    }
+  }, [isOpen, prefilledService]);
 
   if (!isOpen) return null;
 
@@ -58,8 +74,8 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({ isOpen, onClose, prefill
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-slate-900/60 backdrop-blur-sm animate-in fade-in duration-200">
-      <div className="relative w-full max-w-lg bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-100 p-5 sm:p-8 text-left max-h-[88vh] overflow-y-auto">
+    <div className="dialog-backdrop fixed inset-0 z-[80] flex items-center justify-center p-3 sm:p-4 bg-slate-900/60 backdrop-blur-sm">
+      <div ref={dialogRef} role="dialog" aria-modal="true" aria-label="Solicite uma Proposta Contábil" className="dialog-panel relative w-full max-w-lg bg-white rounded-3xl shadow-2xl overflow-hidden border border-slate-100 p-5 sm:p-8 text-left max-h-[88vh] overflow-y-auto">
         
         {/* Close Button */}
         <button
@@ -175,14 +191,8 @@ export const QuoteModal: React.FC<QuoteModalProps> = ({ isOpen, onClose, prefill
                 onChange={(e) => setService(e.target.value)}
                 className="w-full px-3.5 sm:px-4 py-2.5 rounded-xl bg-slate-50 border border-slate-200 text-base sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-[#0B63CE]"
               >
-                <option value="Abertura de Empresas">Abertura de Empresas</option>
-                <option value="Troca de Contador / Migração">Troca de Contador / Migração</option>
-                <option value="Escrita Fiscal & Impostos">Escrita Fiscal & Impostos</option>
-                <option value="Departamento Pessoal & Folha">Departamento Pessoal & Folha</option>
-                <option value="Planejamento Tributário">Planejamento Tributário</option>
-                <option value="Imposto de Renda (IRPF/IRPJ)">Imposto de Renda (IRPF/IRPJ)</option>
-                <option value="Consultoria Contábil">Consultoria Contábil</option>
-                <option value="Regularização de Empresas">Regularização de Empresas</option>
+                {prefilledService && !quoteServices.includes(prefilledService) && <option value={prefilledService}>{prefilledService}</option>}
+                {quoteServices.map((title) => <option key={title} value={title}>{title}</option>)}
               </select>
             </div>
 

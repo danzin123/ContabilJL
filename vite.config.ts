@@ -23,7 +23,7 @@ export default defineConfig(() => {
     },
     build: {
       cssMinify: true,
-      minify: 'esbuild',
+      minify: 'esbuild' as const,
       rollupOptions: {
         output: {
           manualChunks: {
