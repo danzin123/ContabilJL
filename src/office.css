@@ -1,0 +1,445 @@
+.office-story,
+.office-contact,
+.office-footer {
+  color: #142d49;
+  font-family: var(--sans, 'DM Sans', sans-serif);
+}
+
+.office-story {
+  background: var(--brand-light);
+  padding-block: clamp(56px, 6.4vw, 98px);
+}
+
+.office-story-layout,
+.office-contact-layout {
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1.05fr 1fr;
+  gap: clamp(42px, 7vw, 116px);
+}
+
+.office-story-copy h2,
+.office-contact-info h2 {
+  max-width: 15ch;
+  margin: 0;
+  color: #142d49;
+  font-family: var(--serif, 'Instrument Serif', Georgia, serif);
+  font-size: clamp(44px, 4.4vw, 68px);
+  font-weight: 400;
+  line-height: 1.035;
+  letter-spacing: -.031em;
+}
+
+.office-story .office-story-copy h2 { color: #183e5c; }
+.office-story .office-inline-link { color: var(--blue); }
+.office-story-copy p {
+  margin: 21px 0 0;
+  max-width: 48ch;
+  font-size: 16px;
+  line-height: 1.68;
+  color: #365973;
+}
+
+.office-inline-link,
+.office-map-links a,
+.office-map-links button {
+  color: var(--blue);
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.office-inline-link {
+  margin-top: 24px;
+  min-height: 36px;
+  font-size: 14px;
+}
+
+.office-inline-link:hover,
+.office-map-links :is(a, button):hover,
+.office-contact-methods a:hover,
+.office-footer a:not(.jl-brand):hover {
+  text-decoration: underline;
+  text-underline-offset: .23em;
+}
+
+.office-contact {
+  background: #fff;
+  padding-block: clamp(58px, 7vw, 112px);
+}
+
+.office-contact-layout {
+  grid-template-columns: .96fr 1.04fr;
+  align-items: start;
+}
+
+.office-contact-info h2 {
+  max-width: initial;
+  margin-bottom: 38px;
+}
+
+.office-contact-address,
+.office-contact-time {
+  display: flex;
+  align-items: flex-start;
+  gap: 13px;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.office-contact-address > svg,
+.office-contact-time > svg {
+  flex: 0 0 auto;
+  margin-top: 3px;
+  color: #38617c;
+}
+
+.office-contact-address address {
+  font-style: normal;
+}
+
+.office-map-links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px;
+  margin-top: 6px;
+  font-size: 13px;
+}
+
+.office-map-links button {
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.office-map-links :is(a, button) {
+  min-height: 30px;
+}
+
+.office-map-links button[aria-expanded="true"] svg {
+  transform: rotate(180deg);
+}
+
+#office-map iframe {
+  display: block;
+  width: 100%;
+  height: 210px;
+  margin: 16px 0;
+  border: 1px solid #dbe3e6;
+  background: #f2f6f9;
+  border-radius: 8px 8px 32px 8px;
+  border: 1px solid #d8e2ea;
+}
+
+.office-contact-time {
+  margin: 15px 0 26px;
+}
+
+.office-contact-methods {
+  display: grid;
+  border-block-start: 1px solid #d9e2e7;
+}
+
+.office-contact-methods a {
+  display: grid;
+  grid-template-columns: 19px 70px minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-block-end: 1px solid #d9e2e7;
+  color: #163c67;
+  font-size: 14px;
+  overflow-wrap: anywhere;
+}
+
+.office-contact-methods a span {
+  color: #526571;
+}
+
+.office-contact-methods svg {
+  stroke-width: 1.6;
+  color: #38617c;
+}
+
+.office-contact-form {
+  min-width: 0;
+  padding: clamp(24px, 3.15vw, 46px);
+  background: #f2f6f9;
+  border-radius: 8px 8px 32px 8px;
+  border: 1px solid #d8e2ea;
+}
+
+.office-contact-form h3 {
+  margin: 0;
+  font-family: var(--serif, 'Instrument Serif', Georgia, serif);
+  font-size: clamp(33px, 2.8vw, 43px);
+  font-weight: 400;
+  line-height: 1.12;
+  letter-spacing: -.025em;
+}
+
+.office-contact-form > p {
+  margin: 9px 0 23px;
+  max-width: 45ch;
+  color: #526571;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.office-form-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.office-form-fields label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 550;
+}
+
+.office-form-fields small {
+  color: #586876;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.office-form-fields :is(input, select, textarea) {
+  width: 100%;
+  min-width: 0;
+  padding: 9px 12px;
+  border: 1px solid #bac9d1;
+  border-radius: 3px;
+  background: #fff;
+  color: #142d49;
+  font: inherit;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.office-form-fields :is(input, select, textarea):focus {
+  outline: 2px solid #32649c;
+  outline-offset: 1px;
+}
+
+.office-form-fields textarea {
+  min-height: 64px;
+  resize: vertical;
+}
+
+.office-form-wide {
+  grid-column: 1 / -1;
+}
+
+.office-select {
+  position: relative;
+  display: block;
+}
+
+.office-select select {
+  padding-right: 34px;
+  appearance: none;
+}
+
+.office-select svg {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.office-form-submit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  min-height: 45px;
+  margin-top: 22px;
+  padding: 11px 20px;
+  background: var(--blue);
+  color: #fff;
+  border: 0;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color .18s;
+}
+
+.office-form-submit:hover {
+  background: #123c71;
+}
+
+.office-footer {
+  color: #22325b;
+  background: var(--brand-light);
+}
+
+.office-footer-main,
+.office-footer-base,
+.office-footer-main nav,
+.office-social,
+.office-footer-base a {
+  display: flex;
+  align-items: center;
+}
+
+.office-footer-main,
+.office-footer-base {
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.office-footer-main {
+  padding-block: 38px;
+}
+
+.office-footer-main nav {
+  flex-wrap: wrap;
+  gap: clamp(16px, 2.6vw, 44px);
+}
+
+.office-footer-main nav,
+.office-social {
+  font-size: 14px;
+}
+
+.office-social,
+.office-footer-base a {
+  gap: 8px;
+}
+
+.office-footer-base {
+  border-top: 1px solid var(--brand-line);
+  color: #344b72;
+  padding-block: 22px;
+  font-size: 12px;
+}
+
+.office-footer-base small {
+  font-size: inherit;
+}
+
+.office-legal-links { display: flex; align-items: center; gap: 8px; }
+.office-legal-links button { min-height: 36px; font: inherit; }
+.office-legal-links button:hover, .office-legal p a { text-decoration: underline; text-underline-offset: .2em; }
+.office-legal h3 { margin: 24px 0 5px; font: 600 1rem/1.4 var(--sans); color: var(--ink); }
+.office-legal p { margin: 0; color: #405472; line-height: 1.6; overflow-wrap: anywhere; }
+.office-whatsapp {
+  position: fixed;
+  z-index: 25;
+  right: max(14px, env(safe-area-inset-right));
+  bottom: max(16px, env(safe-area-inset-bottom));
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: white;
+  box-shadow: 0 3px 18px #142d492d;
+}
+.office-whatsapp img { display: block; width: 88%; height: auto; }
+.office-whatsapp:hover { box-shadow: 0 3px 18px #142d4955; }
+@media (max-width: 1000px) {
+  .office-footer-base { padding-right: 54px; }
+}
+
+@media (max-width: 850px) {
+  .office-story-layout,
+  .office-contact-layout {
+    gap: 32px;
+  }
+
+  .office-contact-methods a {
+    grid-template-columns: 18px minmax(0, 1fr);
+    row-gap: 2px;
+    align-items: start;
+  }
+
+  .office-contact-methods svg {
+    grid-row: span 2;
+    margin-top: 2px;
+  }
+
+  .office-contact-methods a span {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 720px) {
+  .office-story-layout,
+  .office-contact-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .office-story-copy {
+    grid-row: 1;
+  }
+
+.office-contact-info h2 {
+    margin-bottom: 24px;
+  }
+
+  .office-contact-methods a {
+    align-items: center;
+    grid-template-columns: 19px 66px minmax(0, 1fr);
+  }
+
+  .office-contact-methods svg {
+    grid-row: auto;
+    margin-top: 0;
+  }
+
+  .office-contact-methods a span {
+    font-size: 14px;
+  }
+
+  .office-footer-main {
+    flex-wrap: wrap;
+    gap: 23px;
+    padding-block: 30px;
+  }
+
+  .office-footer-main nav {
+    order: 1;
+    flex-basis: 100%;
+  }
+
+  .office-footer-base {
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-block: 16px;
+  }
+}
+
+@media (max-width: 460px) {
+  .office-form-fields {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 13px;
+  }
+
+  .office-contact-form {
+    padding: 24px 18px;
+  }
+
+  .office-contact-methods a {
+    gap: 8px;
+    grid-template-columns: 18px auto minmax(0, 1fr);
+    font-size: 13px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .office-form-submit {
+    transition: none;
+  }
+}

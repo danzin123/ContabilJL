@@ -4,7 +4,7 @@ export const COMPANY_INFO = {
   name: 'Escritório Contábil JL Oliveira',
   shortName: 'JL Oliveira',
   slogan: 'Contabilidade inteligente para empresas que querem crescer.',
-  subtitle: 'Há anos ajudando empresas de Bragança Paulista e região com soluções contábeis, fiscais, trabalhistas e tributárias.',
+  subtitle: 'Atendimento contábil, fiscal e trabalhista a empresas de todo o Brasil.',
   city: 'Bragança Paulista - SP',
   fullAddress: 'Rua Nicolino Nacaratti, 416, Bragança Paulista - SP',
   street: 'Rua Nicolino Nacaratti, 416',
@@ -13,173 +13,138 @@ export const COMPANY_INFO = {
   phoneRaw: '1140330432',
   whatsapp: '(11) 99899-1422',
   whatsappRaw: '5511998991422',
-  email: 'contato@jloliveiracontabil.com.br',
+  email: 'contabilidade@contabiljloliveira.com.br',
   instagram: 'https://www.instagram.com/contabil_jloliveira/',
   instagramHandle: '@contabil_jloliveira',
-  businessHours: 'Segunda a Sexta: 08h00 às 17:30',
+  businessHours: 'Segunda a sexta, das 8h às 17h30',
   mapsEmbedUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3671.391605273752!2d-46.54341992383841!3d-22.954203879222384!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94cec980ee915d31%3A0xb655ca56beea02e8!2sRua%20Nicolino%20Nacaratti%2C%20416%20-%20Bragan%C3%A7a%20Paulista%20-%20SP!5e0!3m2!1spt-BR!2sbr!4v1700000000000!5m2!1spt-BR!2sbr'
 };
 
 export const SERVICES_LIST: Service[] = [
   {
     id: 'abertura-empresas',
-    title: 'Abertura de Empresas',
-    shortDesc: 'Orientação completa para início das suas atividades com segurança jurídica e rapidez em Bragança Paulista.',
-    fullDesc: 'Abertura rápida e sem complicação. Cuidamos de todo o processo burocrático na Junta Comercial (JUCESP), Receita Federal, Prefeitura de Bragança Paulista e órgãos reguladores, garantindo a escolha do regime tributário mais econômico desde o primeiro dia.',
+    title: 'Abertura de empresas',
+    shortDesc: 'Contrato social, CNPJ e licenças para começar a operar.',
+    fullDesc: 'Antes do registro, conversamos sobre a atividade, o endereço e a composição da sociedade. A partir daí, acompanhamos o pedido em cada órgão responsável.',
     category: 'empresarial',
     iconName: 'Building2',
     features: [
-      'Elaboração de contrato social personalizado',
-      'Obtenção de CNPJ, Inscrição Estadual e Municipal',
-      'Análise prévia de viabilidade de endereço e zoneamento',
-      'Licenciamento e alvarás de funcionamento em Bragança Paulista'
+      'Consulta de viabilidade do endereço e da atividade',
+      'Elaboração do contrato social',
+      'Registro na Junta Comercial e solicitação do CNPJ',
+      'Inscrições e licenças exigidas para o negócio'
     ],
-    benefits: [
-      'Economia de tempo e eliminação de riscos burocráticos',
-      'Enquadramento fiscal otimizado desde o primeiro mês',
-      'Atendimento 100% acompanhado por contadores especialistas'
-    ],
-    targetAudience: 'Novos empreendedores, profissionais liberais e startups.'
+    benefits: ['Você sabe quais documentos separar e acompanha os próximos passos até a abertura.'],
+    targetAudience: 'Quem vai começar um negócio ou formalizar uma atividade profissional.'
   },
   {
     id: 'escrita-fiscal',
-    title: 'Escrita Fiscal',
-    shortDesc: 'Gestão rigorosa de obrigações tributárias para máxima economia e zero penalidades.',
-    fullDesc: 'Apuração precisa de tributos federais, estaduais e municipais (ICMS, ISS, PIS/COFINS, IRPJ e CSLL). Realizamos a escrituração digital de livros e o envio rigoroso de todas as obrigações acessórias (SPED, EFD, GIA).',
+    title: 'Escrita fiscal',
+    shortDesc: 'Registro das notas fiscais, apuração dos impostos e entrega das declarações.',
+    fullDesc: 'Conferimos os documentos fiscais da empresa e apuramos os impostos do período. A equipe também orienta sobre a emissão de notas e os prazos de recolhimento.',
     category: 'fiscal',
     iconName: 'Receipt',
     features: [
-      'Apuração de impostos nos regimes Simples Nacional, Lucro Presumido e Lucro Real',
-      'Escrituração fiscal digital e entrega de SPEDs',
-      'Emissão e revisão de notas fiscais de serviços e mercadorias',
-      'Acompanhamento contínuo de alterações na legislação tributária'
+      'Escrituração de documentos fiscais',
+      'Apuração dos tributos municipais, estaduais e federais',
+      'Preparação das guias e entrega das obrigações acessórias',
+      'Orientação sobre emissão e correção de notas fiscais'
     ],
-    benefits: [
-      'Segurança contra multas e autuações do fisco',
-      'Aproveitamento de créditos tributários legais',
-      'Conformidade total com a legislação estadual de SP e municipal'
-    ],
-    targetAudience: 'Empresas comerciais, prestadores de serviços e indústrias.'
+    benefits: ['O escritório mantém o calendário fiscal da empresa organizado e ajuda a identificar divergências nas notas.'],
+    targetAudience: 'Comércios, prestadores de serviços e indústrias.'
   },
   {
     id: 'departamento-pessoal',
-    title: 'Departamento Pessoal',
-    shortDesc: 'Gestão de folha de pagamento, eSocial e relações trabalhistas com total precisão.',
-    fullDesc: 'Cuidamos de todas as rotinas trabalhistas e previdenciárias da sua equipe com sigilo e pontualidade. Gerenciamos eSocial, admissões, demissões, férias, 13º salário e rescões contratuais em conformidade com a CLT.',
+    title: 'Departamento pessoal',
+    shortDesc: 'Folha de pagamento, admissões e férias da sua equipe.',
+    fullDesc: 'Acompanhamos o vínculo com cada colaborador, da admissão ao desligamento. No fechamento do mês, calculamos salários, descontos e encargos e preparamos os recibos.',
     category: 'pessoal',
     iconName: 'Users',
     features: [
-      'Processamento completo de folha de pagamento e pró-labore',
-      'Gestão de encargos sociais (FGTS, INSS, IRRF)',
-      'Envio de eventos ao eSocial e DCTFWeb',
-      'Assessoramento em convenções coletivas e acordos de trabalho'
+      'Registro de admissões e desligamentos',
+      'Cálculo de salários, férias, 13º salário e rescisões',
+      'Folha de pró-labore e apuração dos encargos',
+      'Envio de eventos ao eSocial'
     ],
-    benefits: [
-      'Redução drástica de passivos e processos trabalhistas',
-      'Prazos rigorosamente cumpridos para pagamentos e declarações',
-      'Apoio humano para sanar dúvidas da sua equipe de RH'
-    ],
-    targetAudience: 'Empresas de todos os portes com colaboradores contratados.'
+    benefits: ['A equipe recebe apoio para organizar os documentos e se preparar para as datas de pagamento.'],
+    targetAudience: 'Empresas com funcionários e sócios que recebem pró-labore.'
   },
   {
     id: 'contabilidade-empresarial',
-    title: 'Contabilidade Empresarial',
-    shortDesc: 'Demonstrativos financeiros estratégicos (DRE, Balanço) para tomada de decisão assertiva.',
-    fullDesc: 'Transformamos dados brutos em inteligência financeira. Elaboramos o Balanço Patrimonial, Demonstração do Resultado do Exercício (DRE) e relatórios gerenciais claros que revelam a real saúde do seu negócio.',
+    title: 'Contabilidade empresarial',
+    shortDesc: 'Balanços e demonstrativos para acompanhar as contas da empresa.',
+    fullDesc: 'Registramos as movimentações da empresa e fazemos o fechamento contábil. Ajudamos os sócios a interpretar o balanço e a demonstração do resultado do exercício.',
     category: 'empresarial',
     iconName: 'BarChart3',
     features: [
-      'Elaboração de Balanço Patrimonial e DRE periódico',
-      'Análise de indicadores de liquidez, rentabilidade e endividamento',
-      'Contabilidade adaptada às normas brasileiras e internacionais (IFRS)',
-      'Relatórios gerenciais em formato executivo e fácil de interpretar'
+      'Escrituração e conciliação das contas',
+      'Elaboração do balanço patrimonial e da DRE',
+      'Relatórios de resultado e acompanhamento de indicadores'
     ],
-    benefits: [
-      'Visualização clara da lucratividade e margem operacional',
-      'Documentação hábil para obtenção de linhas de crédito bancário',
-      'Base sólida para novos investimentos ou expansão da empresa'
-    ],
-    targetAudience: 'Gestores, diretores e sócios que buscam decisões baseadas em dados reais.'
+    benefits: ['Os sócios conseguem acompanhar a evolução das receitas, despesas e do patrimônio da empresa.'],
+    targetAudience: 'Empresários e gestores que acompanham os resultados de um negócio.'
   },
   {
     id: 'planejamento-tributario',
-    title: 'Planejamento Tributário',
-    shortDesc: 'Análise profunda para reduzir legalmente a carga fiscal e aumentar o lucro líquido.',
-    fullDesc: 'Estudamos minuciosamente a estrutura da sua empresa para identificar o regime tributário mais rentável (Simples Nacional, Lucro Presumido ou Lucro Real). Reorganizamos operações para elisão fiscal legítima e recuperação de impostos pagos indevidamente.',
+    title: 'Planejamento tributário',
+    shortDesc: 'Comparação de regimes e revisão dos tributos da empresa.',
+    fullDesc: 'Estudamos a atividade, a folha e o histórico de faturamento para comparar os regimes tributários aplicáveis à empresa. Explicamos o que cada cenário representa para o caixa.',
     category: 'consultoria',
     iconName: 'TrendingUp',
     features: [
-      'Simulação comparativa detalhada entre cenários tributários',
-      'Revisão fiscal de operações dos últimos 5 anos',
-      'Identificação de incentivos e benefícios fiscais estaduais/federais',
-      'Estruturação de operações com foco em eficiência de impostos'
+      'Comparação entre cenários tributários',
+      'Revisão de recolhimentos e operações anteriores',
+      'Análise de créditos e incentivos aplicáveis à atividade'
     ],
-    benefits: [
-      'Economia financeira direta expressiva no orçamento da empresa',
-      'Maior competitividade de preços no mercado regional',
-      'Atuação 100% pautada pela legalidade e segurança jurídica'
-    ],
-    targetAudience: 'Empresas em fase de crescimento ou com alta carga fiscal.'
+    benefits: ['A empresa pode avaliar o enquadramento com antecedência e estimar o efeito de mudanças no negócio.'],
+    targetAudience: 'Empresas em expansão, com mudança de atividade ou que desejam rever seu enquadramento.'
   },
   {
     id: 'imposto-de-renda',
-    title: 'Imposto de Renda (IRPF / IRPJ)',
-    shortDesc: 'Declarações para pessoas físicas e jurídicas com máxima segurança e cruzamento de dados.',
-    fullDesc: 'Elaboramos e transmitimos a Declaração de Imposto de Renda Pessoa Física (IRPF) e Jurídica (IRPJ). Analisamos o ganho de capital, rendimentos isentos, bens e direitos, prevenindo malha fina.',
+    title: 'Imposto de renda',
+    shortDesc: 'Preparação e revisão das declarações de pessoas físicas e jurídicas.',
+    fullDesc: 'Reunimos os comprovantes e conferimos rendimentos, bens e movimentações antes da transmissão. Também acompanhamos pendências e orientamos sobre retificações.',
     category: 'fiscal',
     iconName: 'FileText',
     features: [
-      'Declaração completa de IRPF para empresários, investidores e profissionais',
-      'Cruzamento de informações com e-Financeira, DIMOF e cartórios',
-      'Cálculo e orientação sobre Ganho de Capital em imóveis e ações',
-      'Regularização de pendências e CPF retido na Malha Fina'
+      'Organização e conferência dos informes de rendimento',
+      'Preparação e transmissão das declarações',
+      'Apuração de ganho de capital',
+      'Acompanhamento de pendências e retificações'
     ],
-    benefits: [
-      'Tranquilidade absoluta quanto ao sigilo e veracidade das informações',
-      'Restituição otimizada respeitando os limites legais',
-      'Orientação preventiva para a evolução patrimonial do cliente'
-    ],
-    targetAudience: 'Pessoas físicas, sócios de empresas, médicos, advogados e investidores.'
+    benefits: ['Você chega ao prazo de entrega com os informes e comprovantes organizados.'],
+    targetAudience: 'Pessoas físicas, profissionais autônomos, sócios e empresas.'
   },
   {
     id: 'consultoria-contabil',
-    title: 'Consultoria Contábil',
-    shortDesc: 'Orientação estratégica personalizada para otimização de fluxo de caixa e gestão.',
-    fullDesc: 'Acompanhamento consultivo próximo aos proprietários e diretores. Oferecemos mentoria para precificação correta de produtos/serviços, controle de custos operacionais e reestruturação financeira.',
+    title: 'Consultoria contábil',
+    shortDesc: 'Acompanhamento do fluxo de caixa, dos custos e da formação de preços.',
+    fullDesc: 'Em reuniões com os sócios, examinamos as contas e os planos para o negócio. Com esses dados, discutimos decisões de investimento, preço e capital de giro.',
     category: 'consultoria',
     iconName: 'Compass',
     features: [
-      'Reuniões de alinhamento estratégico trimestrais ou mensais',
-      'Análise do fluxo de caixa e capital de giro',
-      'Apoio em processos de fusão, cisão ou aquisição de cotas',
-      'Valuation preliminar e diagnóstico de viabilidade financeira'
+      'Análise de custos e formação de preços',
+      'Planejamento do fluxo de caixa e do capital de giro',
+      'Avaliação financeira de mudanças societárias'
     ],
-    benefits: [
-      'Visão externa experiente aplicada diretamente no seu negócio',
-      'Redução do desperdício operacional e custos desnecessários',
-      'Crescimento estruturado e sustentável ao longo do tempo'
-    ],
-    targetAudience: 'Empresários que buscam um parceiro estratégico, além da contabilidade tradicional.'
+    benefits: ['Os gestores podem comparar alternativas com base nos números da própria empresa.'],
+    targetAudience: 'Sócios e gestores que buscam orientação para uma decisão financeira.'
   },
   {
     id: 'regularizacao-empresas',
-    title: 'Regularização de Empresas',
-    shortDesc: 'Solução rápida para pendências fiscais, débitos e certidões negativas (CND).',
-    fullDesc: 'Sanamos pendências que impedem sua empresa de emitir certidões, participar de licitações ou obter empréstimos. Realizamos parcelamentos de débitos tributários (RFB, PGFN, Estado e Município) e reativação de CNPJ inativo.',
+    title: 'Regularização de empresas',
+    shortDesc: 'Levantamento de pendências, parcelamentos e emissão de certidões.',
+    fullDesc: 'Identificamos onde está a pendência e quais documentos são necessários para resolvê-la. Acompanhamos o processo junto à Receita, ao estado ou à prefeitura.',
     category: 'empresarial',
     iconName: 'ShieldCheck',
     features: [
-      'Levantamento completo de pendências na Receita, Estado e Prefeitura',
-      'Negociação e adesão a programas de parcelamento (REFIS / Transação Excepcional)',
-      'Emissão de Certidões Negativas de Débitos (CNDs)',
-      'Baixa regular de empresas sem operação'
+      'Consulta de pendências fiscais e cadastrais',
+      'Acompanhamento de negociações e parcelamentos',
+      'Emissão de certidões e regularização do CNPJ',
+      'Baixa de empresas que encerraram as atividades'
     ],
-    benefits: [
-      'Recuperação da credibilidade no mercado e junto a bancos',
-      'Desbloqueio de certidões essenciais para emissão de notas e contratos',
-      'Regularização financeira sem sobressaltos e com valores cabíveis'
-    ],
-    targetAudience: 'Empresas com restrições fiscais, CNPJ inapto ou débitos em aberto.'
+    benefits: ['A empresa recebe um levantamento das pendências e uma sequência de providências para regularizá-las.'],
+    targetAudience: 'Empresas com débitos, restrições cadastrais ou atividades encerradas.'
   }
 ];
 
@@ -199,7 +164,7 @@ export const DIFFERENTIALS: Differential[] = [
     numberValue: 40,
     suffix: ' Anos',
     label: 'Anos de Tradição',
-    description: 'Histórico consolidado em Bragança Paulista e região com sólida reputação técnica e ética.',
+    description: 'Experiência nas rotinas fiscais, trabalhistas e contábeis de empresas brasileiras.',
     iconName: 'Award'
   },
   {
@@ -226,7 +191,7 @@ export const PROCESS_STEPS: ProcessStep[] = [
     stepNumber: 1,
     title: 'Primeiro Contato',
     subtitle: 'Alinhamento de expectativas e escopo',
-    description: 'Entendemos o momento atual da sua empresa em Bragança Paulista ou os planos para novo negócio através de um atendimento acolhedor e direto.',
+    description: 'Conversamos sobre o momento da sua empresa ou os planos para abrir um negócio.',
     iconName: 'MessageSquareCircle',
     durationEstimate: 'Atendimento imediato'
   },

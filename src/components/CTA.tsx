@@ -24,7 +24,7 @@ export const CTA: React.FC<CTAProps> = ({ onOpenQuoteModal }) => {
             {/* Badge */}
             <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 rounded-full bg-white/15 backdrop-blur-md text-[11px] sm:text-xs font-bold text-white border border-white/20 shadow-xs">
               <Zap className="w-3.5 h-3.5 text-yellow-300 fill-yellow-300 flex-shrink-0" />
-              <span>Atendimento em Bragança Paulista e Região</span>
+              <span>Atendimento em todo o Brasil</span>
             </div>
 
             {/* Title */}

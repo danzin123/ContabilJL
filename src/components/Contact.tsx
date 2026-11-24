@@ -1,384 +1,97 @@
-import React, { useState } from 'react';
-import { COMPANY_INFO } from '../data/content';
-import { ContactFormData } from '../types';
-import whatsappImg from '../assets/whatsapp.png';
-import { MapPin, Phone, Mail, Clock, Send, CheckCircle2, Navigation, AlertCircle, Instagram } from 'lucide-react';
+import { useState, type FormEvent } from 'react';
+import { ArrowUpRight, ChevronDown, Clock3, Mail, MapPin, MessageCircle, Phone } from 'lucide-react';
+import { COMPANY_INFO, SERVICES_LIST } from '../data/content';
+import '../office.css';
 
-export const Contact: React.FC = () => {
-  const [formData, setFormData] = useState<ContactFormData>({
-    name: '',
-    company: '',
-    email: '',
-    phone: '',
-    service: 'Abertura de Empresas',
-    message: ''
-  });
+const whatsappUrl = `https://wa.me/${COMPANY_INFO.whatsappRaw}`;
+const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(COMPANY_INFO.fullAddress)}`;
 
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+function prepareConversation(event: FormEvent<HTMLFormElement>) {
+  event.preventDefault();
+  const data = new FormData(event.currentTarget);
+  const get = (field: string) => String(data.get(field) ?? '').trim();
+  const message = [
+    `Olá! Meu nome é ${get('name')} e gostaria de falar sobre ${get('service')}.`,
+    get('company') && `Empresa: ${get('company')}`,
+    get('email') && `E-mail: ${get('email')}`,
+    get('phone') && `Telefone: ${get('phone')}`,
+    get('message'),
+  ].filter(Boolean).join('\n');
+  window.open(`${whatsappUrl}?text=${encodeURIComponent(message)}`, '_blank', 'noopener,noreferrer');
+}
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-    setErrorMessage('');
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (!formData.name.trim() || !formData.phone.trim() || !formData.email.trim()) {
-      setErrorMessage('Por favor, preencha nome, e-mail e telefone.');
-      return;
-    }
-
-    setIsSubmitting(true);
-
-    setTimeout(async () => {
-      setIsSubmitting(false);
-      setIsSubmitted(true);
-
-      try {
-        const confetti = (await import('canvas-confetti')).default;
-        confetti({
-          particleCount: 60,
-          spread: 60,
-          origin: { y: 0.6 }
-        });
-      } catch (err) {
-        // Fallback gracefully
-      }
-    }, 600);
-  };
-
-  const handleSendToWhatsApp = () => {
-    const text = `*Solicitação de Atendimento pelo Site*
-*Nome:* ${formData.name}
-*Empresa:* ${formData.company || 'Não informada'}
-*E-mail:* ${formData.email}
-*Telefone:* ${formData.phone}
-*Serviço de Interesse:* ${formData.service}
-*Mensagem:* ${formData.message || 'Sem mensagem adicional.'}`;
-
-    window.open(`https://wa.me/${COMPANY_INFO.whatsappRaw}?text=${encodeURIComponent(text)}`, '_blank');
-  };
+export function Contact() {
+  const [mapOpen, setMapOpen] = useState(false);
 
   return (
-    <section id="contato" className="py-14 sm:py-20 lg:py-28 bg-transparent relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-10 sm:mb-16 space-y-2.5 sm:space-y-3">
-          <span className="text-xs font-bold uppercase tracking-widest text-[#0B63CE] bg-[#0B63CE]/10 px-3.5 py-1.5 rounded-full">
-            Fale Conosco
-          </span>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight leading-snug">
-            Estamos Prontos para Atender Sua Empresa
-          </h2>
-          <p className="text-slate-600 text-sm sm:text-lg">
-            Venha tomar um café em nosso escritório em Bragança Paulista ou solicite um atendimento digital imediato.
-          </p>
-        </div>
-
-        {/* Split Contact Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-          
-          {/* Left Column: Direct Info & Google Maps */}
-          <div className="lg:col-span-5 space-y-4 sm:space-y-6 text-left">
-            
-            <div className="space-y-3 sm:space-y-4">
-              {/* Address Card */}
-              <div className="p-4 sm:p-5 rounded-2xl bg-slate-50 border border-slate-200 flex items-start gap-3.5 sm:gap-4">
-                <div className="p-2.5 sm:p-3 bg-[#0B63CE] text-white rounded-xl flex-shrink-0 shadow-sm">
-                  <MapPin className="w-5 h-5" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-slate-900 text-sm">Endereço</h4>
-                  <p className="text-slate-600 text-xs sm:text-sm mt-0.5">
-                    {COMPANY_INFO.street}
-                  </p>
-                  <p className="text-slate-500 text-xs font-medium">
-                    {COMPANY_INFO.city}
-                  </p>
-                  <a
-                    href="https://maps.google.com/?q=Rua+Nicolino+Nacaratti+416+Braganca+Paulista+SP"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-xs font-bold text-[#0B63CE] hover:underline mt-1.5"
-                  >
-                    <Navigation className="w-3.5 h-3.5" />
-                    <span>Como chegar via Google Maps</span>
-                  </a>
-                </div>
-              </div>
-
-              {/* Phone Card */}
-              <div className="p-4 sm:p-5 rounded-2xl bg-slate-50 border border-slate-200 flex items-start gap-3.5 sm:gap-4">
-                <div className="p-2.5 sm:p-3 bg-[#0B63CE] text-white rounded-xl flex-shrink-0 shadow-sm">
-                  <Phone className="w-5 h-5" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-slate-900 text-sm">Telefone Fixo</h4>
-                  <a href={`tel:${COMPANY_INFO.phoneRaw}`} className="text-slate-800 font-semibold text-sm hover:text-[#0B63CE] mt-0.5 block">
-                    {COMPANY_INFO.phone}
-                  </a>
-                </div>
-              </div>
-
-              {/* WhatsApp Card */}
-              <div className="p-4 sm:p-5 rounded-2xl bg-slate-50 border border-slate-200 flex items-start gap-3.5 sm:gap-4">
-                <img
-                  src={whatsappImg}
-                  alt="WhatsApp"
-                  className="w-10 h-10 sm:w-11 sm:h-11 object-contain flex-shrink-0"
-                />
-                <div>
-                  <h4 className="font-bold text-slate-900 text-sm">WhatsApp</h4>
-                  <a
-                    href={`https://wa.me/${COMPANY_INFO.whatsappRaw}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-slate-800 font-semibold text-sm hover:text-[#25D366] mt-0.5 block"
-                  >
-                    {COMPANY_INFO.whatsapp}
-                  </a>
-                  <span className="text-[11px] text-slate-500 block">Atendimento rápido em horário comercial</span>
-                </div>
-              </div>
-
-              {/* Instagram Card */}
-              <div className="p-4 sm:p-5 rounded-2xl bg-slate-50 border border-slate-200 flex items-start gap-3.5 sm:gap-4">
-                <div className="p-2.5 sm:p-3 bg-gradient-to-tr from-[#F58529] via-[#DD2A7B] to-[#8134AF] text-white rounded-xl flex-shrink-0 shadow-sm">
-                  <Instagram className="w-5 h-5" />
-                </div>
-                <div>
-                  <h4 className="font-bold text-slate-900 text-sm">Instagram</h4>
-                  <a
-                    href={COMPANY_INFO.instagram}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-slate-800 font-semibold text-sm hover:text-[#DD2A7B] mt-0.5 block"
-                  >
-                    {COMPANY_INFO.instagramHandle}
-                  </a>
-                  <span className="text-[11px] text-slate-500 block">Siga-nos para dicas e atualizações fiscais</span>
-                </div>
-              </div>
-
-              {/* Hours */}
-              <div className="p-3.5 sm:p-4 rounded-2xl bg-slate-100/70 border border-slate-200 flex items-center gap-3 text-xs text-slate-700">
-                <Clock className="w-4 h-4 text-[#0B63CE] flex-shrink-0" />
-                <span><strong>Horário:</strong> {COMPANY_INFO.businessHours}</span>
-              </div>
-            </div>
-
-            {/* Embedded Google Maps Box */}
-            <div className="rounded-3xl overflow-hidden border border-slate-200 shadow-md h-52 sm:h-64 relative bg-slate-100">
-              <iframe
-                title="Localização do Escritório Contábil JL Oliveira"
-                src={COMPANY_INFO.mapsEmbedUrl}
-                width="100%"
-                height="100%"
-                style={{ border: 0 }}
-                allowFullScreen={false}
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
-              />
-            </div>
-
-          </div>
-
-          {/* Right Column: Contact Form */}
-          <div className="lg:col-span-7 glass-card p-5 sm:p-8 lg:p-10 rounded-3xl border border-slate-200 shadow-xl text-left">
-            
-            {isSubmitted ? (
-              <div className="py-8 sm:py-12 text-center space-y-5 sm:space-y-6">
-                <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
-                  <CheckCircle2 className="w-8 h-8 sm:w-10 sm:h-10" />
-                </div>
-
-                <div className="space-y-2 max-w-md mx-auto">
-                  <h3 className="text-xl sm:text-2xl font-black text-slate-900">
-                    Mensagem Enviada com Sucesso!
-                  </h3>
-                  <p className="text-slate-600 text-xs sm:text-sm leading-relaxed">
-                    Agradecemos seu contato, <strong className="text-slate-800">{formData.name}</strong>. Nossa equipe entrará em contato em breve via telefone ou e-mail.
-                  </p>
-                </div>
-
-                <div className="pt-2 sm:pt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
-                  <button
-                    onClick={handleSendToWhatsApp}
-                    className="w-full sm:w-auto px-5 sm:px-6 py-3.5 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-xs rounded-xl shadow-md transition-all flex items-center justify-center gap-2 active:scale-98"
-                  >
-                    <img src={whatsappImg} alt="WhatsApp" className="w-4 h-4 object-contain" />
-                    <span>Enviar Cópia via WhatsApp Agora</span>
-                  </button>
-
-                  <button
-                    onClick={() => {
-                      setIsSubmitted(false);
-                      setFormData({
-                        name: '',
-                        company: '',
-                        email: '',
-                        phone: '',
-                        service: 'Abertura de Empresas',
-                        message: ''
-                      });
-                    }}
-                    className="w-full sm:w-auto px-5 sm:px-6 py-3.5 bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold text-xs rounded-xl transition-all active:scale-98"
-                  >
-                    Enviar Nova Mensagem
-                  </button>
-                </div>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
-                
-                <div className="space-y-1">
-                  <h3 className="text-lg sm:text-xl font-bold text-slate-900">
-                    Solicite Atendimento ou Orçamento
-                  </h3>
-                  <p className="text-xs text-slate-500">
-                    Preencha o formulário abaixo para retornarmos o contato rapidamente.
-                  </p>
-                </div>
-
-                {errorMessage && (
-                  <div className="p-3 rounded-xl bg-red-50 border border-red-200 text-red-700 text-xs flex items-center gap-2">
-                    <AlertCircle className="w-4 h-4 flex-shrink-0" />
-                    <span>{errorMessage}</span>
-                  </div>
-                )}
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
-                  {/* Name */}
-                  <div>
-                    <label className="block text-xs font-bold text-slate-700 uppercase mb-1">
-                      Seu Nome *
-                    </label>
-                    <input
-                      type="text"
-                      name="name"
-                      required
-                      value={formData.name}
-                      onChange={handleChange}
-                      placeholder="Ex: Carlos Silva"
-                      className="w-full px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl bg-slate-50 border border-slate-200 text-base sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-[#0B63CE] transition-all"
-                    />
-                  </div>
-
-                  {/* Company */}
-                  <div>
-                    <label className="block text-xs font-bold text-slate-700 uppercase mb-1">
-                      Nome da Empresa
-                    </label>
-                    <input
-                      type="text"
-                      name="company"
-                      value={formData.company}
-                      onChange={handleChange}
-                      placeholder="Ex: Silva Comercio Ltda"
-                      className="w-full px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl bg-slate-50 border border-slate-200 text-base sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-[#0B63CE] transition-all"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
-                  {/* Email */}
-                  <div>
-                    <label className="block text-xs font-bold text-slate-700 uppercase mb-1">
-                      E-mail *
-                    </label>
-                    <input
-                      type="email"
-                      name="email"
-                      required
-                      value={formData.email}
-                      onChange={handleChange}
-                      placeholder="Ex: contato@empresa.com.br"
-                      className="w-full px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl bg-slate-50 border border-slate-200 text-base sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-[#0B63CE] transition-all"
-                    />
-                  </div>
-
-                  {/* Phone */}
-                  <div>
-                    <label className="block text-xs font-bold text-slate-700 uppercase mb-1">
-                      Telefone / WhatsApp *
-                    </label>
-                    <input
-                      type="tel"
-                      name="phone"
-                      required
-                      value={formData.phone}
-                      onChange={handleChange}
-                      placeholder="Ex: (11) 99899-0000"
-                      className="w-full px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl bg-slate-50 border border-slate-200 text-base sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-[#0B63CE] transition-all"
-                    />
-                  </div>
-                </div>
-
-                {/* Service Selection */}
-                <div>
-                  <label className="block text-xs font-bold text-slate-700 uppercase mb-1">
-                    Serviço de Interesse
-                  </label>
-                  <select
-                    name="service"
-                    value={formData.service}
-                    onChange={handleChange}
-                    className="w-full px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl bg-slate-50 border border-slate-200 text-base sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-[#0B63CE] transition-all"
-                  >
-                    <option value="Abertura de Empresas">Abertura de Empresas</option>
-                    <option value="Escrita Fiscal">Escrita Fiscal</option>
-                    <option value="Departamento Pessoal">Departamento Pessoal</option>
-                    <option value="Contabilidade Empresarial">Contabilidade Empresarial</option>
-                    <option value="Planejamento Tributário">Planejamento Tributário</option>
-                    <option value="Imposto de Renda">Imposto de Renda (IRPF / IRPJ)</option>
-                    <option value="Consultoria Contábil">Consultoria Contábil</option>
-                    <option value="Regularização de Empresas">Regularização de Empresas</option>
-                  </select>
-                </div>
-
-                {/* Message */}
-                <div>
-                  <label className="block text-xs font-bold text-slate-700 uppercase mb-1">
-                    Mensagem (Opcional)
-                  </label>
-                  <textarea
-                    name="message"
-                    rows={3}
-                    value={formData.message}
-                    onChange={handleChange}
-                    placeholder="Conte-nos brevemente sobre sua necessidade..."
-                    className="w-full px-3.5 sm:px-4 py-2.5 sm:py-3 rounded-xl bg-slate-50 border border-slate-200 text-base sm:text-sm text-slate-900 focus:outline-none focus:bg-white focus:border-[#0B63CE] transition-all resize-none"
-                  />
-                </div>
-
-                {/* Submit Button */}
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full py-3.5 sm:py-4 px-6 bg-[#0B63CE] hover:bg-[#0952ae] text-white font-bold text-sm rounded-xl shadow-lg shadow-[#0B63CE]/25 transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70 active:scale-98"
-                >
-                  {isSubmitting ? (
-                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                  ) : (
-                    <>
-                      <span>Enviar Mensagem</span>
-                      <Send className="w-4 h-4" />
-                    </>
-                  )}
+    <section id="contato" aria-labelledby="office-contact-title" className="office-contact">
+      <div className="site-container office-contact-layout">
+        <div className="office-contact-info">
+          <h2 id="office-contact-title">Fale com o escritório.</h2>
+          <div className="office-contact-address">
+            <MapPin size={19} strokeWidth={1.6} aria-hidden="true" />
+            <div>
+              <address>{COMPANY_INFO.street}<br />{COMPANY_INFO.neighborhood}, {COMPANY_INFO.city}</address>
+              <div className="office-map-links">
+                <button type="button" aria-controls="office-map" aria-expanded={mapOpen} onClick={() => setMapOpen(!mapOpen)}>
+                  {mapOpen ? 'Fechar mapa' : 'Ver mapa'}
+                  <ChevronDown size={14} aria-hidden="true" />
                 </button>
-
-              </form>
-            )}
-
+                <a href={directionsUrl} target="_blank" rel="noopener noreferrer">
+                  Traçar rota <ArrowUpRight size={14} aria-hidden="true" />
+                </a>
+              </div>
+            </div>
           </div>
-
+          <div id="office-map" hidden={!mapOpen}>
+            {mapOpen && (
+              <iframe title="Localização do Escritório Contábil JL Oliveira" src={COMPANY_INFO.mapsEmbedUrl}
+                loading="lazy" referrerPolicy="no-referrer-when-downgrade" allowFullScreen />
+            )}
+          </div>
+          <p className="office-contact-time">
+            <Clock3 size={18} strokeWidth={1.6} aria-hidden="true" /> {COMPANY_INFO.businessHours}
+          </p>
+          <div className="office-contact-methods">
+            <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
+              <MessageCircle size={18} aria-hidden="true" /><span>WhatsApp</span> {COMPANY_INFO.whatsapp}
+            </a>
+            <a href={`tel:+55${COMPANY_INFO.phoneRaw}`}>
+              <Phone size={18} aria-hidden="true" /><span>Telefone</span> {COMPANY_INFO.phone}
+            </a>
+            <a href={`mailto:${COMPANY_INFO.email}`}>
+              <Mail size={18} aria-hidden="true" /><span>E-mail</span> {COMPANY_INFO.email}
+            </a>
+          </div>
         </div>
-
+        <form className="office-contact-form" onSubmit={prepareConversation} aria-labelledby="office-form-title">
+          <h3 id="office-form-title">Como podemos ajudar?</h3>
+          <p>Conte um pouco sobre a sua empresa. Você pode revisar a mensagem no WhatsApp antes de enviar.</p>
+          <div className="office-form-fields">
+            <label>Seu nome<input name="name" autoComplete="name" required pattern={'.*\\S.*'} /></label>
+            <label><span>Empresa <small>(opcional)</small></span><input name="company" autoComplete="organization" /></label>
+            <label><span>E-mail <small>(opcional)</small></span><input type="email" name="email" autoComplete="email" /></label>
+            <label><span>Telefone <small>(opcional)</small></span><input type="tel" name="phone" autoComplete="tel" minLength={8} /></label>
+            <label className="office-form-wide">Serviço de interesse
+              <span className="office-select">
+                <select name="service" required defaultValue="">
+                  <option value="" disabled>Selecione um serviço</option>
+                  {SERVICES_LIST.map(service => <option key={service.id} value={service.title}>{service.title}</option>)}
+                  <option value="outro assunto">Outro assunto</option>
+                </select>
+                <ChevronDown size={16} aria-hidden="true" />
+              </span>
+            </label>
+            <label className="office-form-wide"><span>Mensagem <small>(opcional)</small></span>
+              <textarea name="message" rows={2} />
+            </label>
+          </div>
+          <button className="office-form-submit" type="submit">
+            Continuar no WhatsApp <ArrowUpRight size={16} aria-hidden="true" />
+          </button>
+        </form>
       </div>
     </section>
   );
-};
+}
+

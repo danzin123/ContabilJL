@@ -1,399 +1,176 @@
-import React, { useState, useMemo } from 'react';
-import { runCompleteTaxDiagnosis } from '../utils/taxCalculator';
-import { 
-  Calculator, 
-  ArrowRight, 
-  CheckCircle2, 
-  TrendingDown, 
-  Sparkles, 
-  Info, 
-  ChevronDown, 
-  ChevronUp, 
-  ShieldCheck,
-  Building2,
-  Percent,
-  FileSpreadsheet
-} from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Calculator, ChevronDown, Minus, Plus } from 'lucide-react';
+import { estimateTaxes, segments, type Segment } from '../utils/taxCalculator';
+import '../simulator.css';
+
+const money = new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' });
+const rate = new Intl.NumberFormat('pt-BR', { style: 'percent', maximumFractionDigits: 2 });
+const optionalAmount = (text: string) => text === '' ? null : Number(text);
+const requiredAmount = (text: string) => text === '' ? NaN : Number(text);
+
+interface MoneyFieldProps {
+  id: string;
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+  hint?: string;
+  placeholder?: string;
+}
+
+function MoneyField({ id, label, value, onChange, hint, placeholder }: MoneyFieldProps) {
+  return (
+    <div className="sim-field">
+      <label htmlFor={id}>{label}</label>
+      <div className="sim-currency">
+        <span aria-hidden="true">R$</span>
+        <input id={id} type="number" inputMode="decimal" min="0" step="0.01" value={value}
+          placeholder={placeholder} aria-describedby={hint ? `${id}-hint` : undefined}
+          onChange={event => onChange(event.currentTarget.value)} />
+      </div>
+      {hint && <small id={`${id}-hint`} className="sim-hint">{hint}</small>}
+    </div>
+  );
+}
 
 interface TaxCalculatorProps {
   onOpenQuoteModal: (serviceName?: string) => void;
 }
 
-export const TaxCalculator: React.FC<TaxCalculatorProps> = ({ onOpenQuoteModal }) => {
-  const [revenue, setRevenue] = useState<number>(45000); // R$ 45.000 / mês padrão
-  const [segment, setSegment] = useState<'servicos' | 'comercio' | 'industria'>('servicos');
-  const [payrollCost, setPayrollCost] = useState<number>(14000); // R$ 14.000 / mês padrão
-  const [employees, setEmployees] = useState<number>(3);
-  const [showDetailedBreakdown, setShowDetailedBreakdown] = useState<boolean>(false);
+export function TaxCalculator({ onOpenQuoteModal }: TaxCalculatorProps) {
+  const [open, setOpen] = useState(() => window.location.hash === '#simulador');
+  const [activity, setActivity] = useState<Segment | 'outra'>('servicos');
+  const [month, setMonth] = useState('45000');
+  const [year, setYear] = useState('540000');
+  const [payroll, setPayroll] = useState('168000');
+  const [local, setLocal] = useState('');
+  const [charges, setCharges] = useState('');
+  const [taxable, setTaxable] = useState('');
 
-  // Executa diagnóstico completo 100% verídico baseado na legislação da Receita Federal
-  const result = useMemo(() => {
-    return runCompleteTaxDiagnosis(revenue, payrollCost, segment);
-  }, [revenue, payrollCost, segment]);
+  useEffect(() => {
+    const openFromLink = () => {
+      if (window.location.hash === '#simulador') setOpen(true);
+    };
+    const openFromClick = (event: MouseEvent) => {
+      if (event.target instanceof Element && event.target.closest('a[href="#simulador"]')) setOpen(true);
+    };
+    window.addEventListener('hashchange', openFromLink);
+    document.addEventListener('click', openFromClick);
+    return () => {
+      window.removeEventListener('hashchange', openFromLink);
+      document.removeEventListener('click', openFromClick);
+    };
+  }, []);
 
-  const handleRevenueChange = (val: number) => {
-    const cleanVal = Math.max(1000, Math.min(val, 400000));
-    setRevenue(cleanVal);
-    // Ajusta folha proporcional se necessário
-    if (payrollCost > cleanVal * 0.8) {
-      setPayrollCost(Math.round(cleanVal * 0.28));
-    }
-  };
-
-  const handlePayrollChange = (val: number) => {
-    const cleanVal = Math.max(0, Math.min(val, revenue * 0.9));
-    setPayrollCost(cleanVal);
-  };
+  const revenue = requiredAmount(month);
+  const result = activity === 'outra'
+    ? { issue: 'A comparação para esta atividade depende de uma análise individual do enquadramento.' }
+    : estimateTaxes({
+      segment: activity, monthlyRevenue: revenue, revenue12: requiredAmount(year), payroll12: requiredAmount(payroll),
+      pisCofinsBase: optionalAmount(taxable) ?? revenue, localTaxes: optionalAmount(local), employerCharges: optionalAmount(charges),
+    });
+  const localLabel = activity === 'comercio' ? 'ICMS líquido' : activity === 'industria' ? 'ICMS e IPI líquidos' : 'ISS';
+  const breakdown: [string, number | null][] = 'das' in result ? [
+    ['PIS e Cofins', result.pisCofins], ['IRPJ e adicional', result.irpj], ['CSLL', result.csll],
+    [localLabel, optionalAmount(local)], ['Encargos patronais', optionalAmount(charges)],
+  ] : [];
 
   return (
-    <section id="simulador" className="py-14 sm:py-20 lg:py-28 bg-transparent relative text-left">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-14 space-y-2.5 sm:space-y-3">
-          <span className="text-xs font-bold uppercase tracking-widest text-[#0B63CE] bg-[#0B63CE]/10 px-3.5 py-1.5 rounded-full inline-flex items-center gap-1.5">
-            <Calculator className="w-3.5 h-3.5" />
-            Simulador Tributário Oficial
-          </span>
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight leading-snug">
-            Simulador de Regime Tributário & Economia Real
-          </h2>
-          <p className="text-slate-600 text-sm sm:text-lg">
-            Cálculo verídico conforme a <strong>Lei Complementar nº 123/2006 (LC 155/2016)</strong> e tabelas oficiais da Receita Federal.
-          </p>
-        </div>
-
-        {/* Simulator Main Card */}
-        <div className="glass-card p-4 sm:p-8 lg:p-10 rounded-3xl border border-slate-200 shadow-xl grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
-          
-          {/* Inputs Column */}
-          <div className="lg:col-span-7 space-y-5 sm:space-y-6">
-            
-            {/* Segment Selector */}
+    <section id="simulador" className="sim-section" aria-labelledby="sim-title">
+      <div className="site-container">
+        <header className="sim-intro">
+          <div className="sim-heading">
+            <span className="sim-symbol" aria-hidden="true"><Calculator size={29} strokeWidth={1.4} /></span>
             <div>
-              <label className="block text-xs font-bold uppercase text-slate-700 tracking-wider mb-2">
-                1. Ramo de Atividade da Empresa
-              </label>
-              <div className="grid grid-cols-3 gap-1.5 sm:gap-2">
-                {[
-                  { id: 'servicos', label: 'Serviços', desc: 'TI, Consultoria, Saúde, Geral' },
-                  { id: 'comercio', label: 'Comércio', desc: 'Lojas, Varejo, E-commerce' },
-                  { id: 'industria', label: 'Indústria', desc: 'Fábricas e Produção' },
-                ].map((item) => (
-                  <button
-                    key={item.id}
-                    type="button"
-                    onClick={() => setSegment(item.id as any)}
-                    className={`py-3 px-2.5 sm:px-3 text-center rounded-2xl transition-all cursor-pointer active:scale-95 border ${
-                      segment === item.id
-                        ? 'bg-[#0B63CE] text-white border-[#0B63CE] shadow-md'
-                        : 'bg-white hover:bg-slate-50 text-slate-700 border-slate-200'
-                    }`}
-                  >
-                    <span className="block text-xs sm:text-sm font-extrabold">{item.label}</span>
-                    <span className={`block text-[10px] sm:text-[11px] mt-0.5 ${segment === item.id ? 'text-blue-100' : 'text-slate-500'}`}>
-                      {item.desc}
-                    </span>
-                  </button>
-                ))}
-              </div>
+              <h2 id="sim-title">Simulador tributário</h2>
+              <p>Estime os tributos da sua empresa no Simples Nacional e no Lucro Presumido pelas regras de 2026.</p>
             </div>
+          </div>
+          <button className="sim-toggle" type="button" aria-expanded={open} aria-controls="sim-body" onClick={() => setOpen(!open)}>
+            {open ? 'Fechar simulador' : 'Abrir simulador'}
+            {open ? <Minus size={17} aria-hidden="true" /> : <Plus size={17} aria-hidden="true" />}
+          </button>
+        </header>
 
-            {/* Revenue Input & Slider */}
-            <div className="p-4 rounded-2xl bg-white border border-slate-200/80 space-y-3">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 sm:gap-4">
-                <label className="text-xs font-bold uppercase text-slate-700 tracking-wider">
-                  2. Faturamento Bruto Mensal (R$)
-                </label>
-                <div className="flex items-center gap-1 bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-200">
-                  <span className="text-xs font-bold text-slate-400">R$</span>
-                  <input
-                    type="number"
-                    min="1000"
-                    max="400000"
-                    step="1000"
-                    value={revenue}
-                    onChange={(e) => handleRevenueChange(Number(e.target.value))}
-                    className="w-24 sm:w-28 text-base font-extrabold text-[#0B63CE] bg-transparent focus:outline-none text-right"
-                  />
-                </div>
-              </div>
-
-              <input
-                type="range"
-                min="5000"
-                max="350000"
-                step="5000"
-                value={revenue}
-                onChange={(e) => handleRevenueChange(Number(e.target.value))}
-                className="w-full h-2.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#0B63CE]"
-              />
-
-              <div className="flex justify-between text-[11px] text-slate-400 font-medium">
-                <span>R$ 5.000/mês</span>
-                <span>R$ 150.000/mês</span>
-                <span>R$ 350.000+/mês</span>
-              </div>
+        <div id="sim-body" className="sim-body" hidden={!open}>
+          <div className="sim-fields">
+            <h3>Dados da empresa</h3>
+            <p className="sim-field-intro">Comece pelos valores de exemplo ou use os da sua empresa.</p>
+            <div className="sim-field">
+              <label htmlFor="sim-segment">Atividade</label>
+              <select id="sim-segment" value={activity} onChange={event => {
+                setActivity(event.target.value as typeof activity);
+                setLocal('');
+                setTaxable('');
+              }}>
+                {Object.entries(segments).map(([id, name]) => <option key={id} value={id}>{name}</option>)}
+                <option value="outra">Anexo IV, atividade mista ou outra atividade</option>
+              </select>
             </div>
-
-            {/* Payroll & Pro-Labore Input & Slider */}
-            <div className="p-4 rounded-2xl bg-white border border-slate-200/80 space-y-3">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 sm:gap-4">
-                <div className="space-y-0.5">
-                  <label className="text-xs font-bold uppercase text-slate-700 tracking-wider block">
-                    3. Folha de Pagamento + Pró-Labore (R$/mês)
-                  </label>
-                  <span className="text-[11px] text-slate-500 block">
-                    Salários brutos dos funcionários + Pró-labore dos sócios
-                  </span>
-                </div>
-                <div className="flex items-center gap-1 bg-slate-50 px-3 py-1.5 rounded-xl border border-slate-200">
-                  <span className="text-xs font-bold text-slate-400">R$</span>
-                  <input
-                    type="number"
-                    min="0"
-                    max={revenue * 0.9}
-                    step="500"
-                    value={payrollCost}
-                    onChange={(e) => handlePayrollChange(Number(e.target.value))}
-                    className="w-24 sm:w-28 text-base font-extrabold text-slate-800 bg-transparent focus:outline-none text-right"
-                  />
-                </div>
-              </div>
-
-              <input
-                type="range"
-                min="0"
-                max={Math.max(15000, Math.round(revenue * 0.6))}
-                step="500"
-                value={payrollCost}
-                onChange={(e) => handlePayrollChange(Number(e.target.value))}
-                className="w-full h-2.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#0B63CE]"
-              />
-
-              {/* Fator R Indicator for Services */}
-              {segment === 'servicos' && (
-                <div className={`p-2.5 rounded-xl text-xs flex items-center justify-between border ${
-                  result.factorREligible
-                    ? 'bg-emerald-50 text-emerald-800 border-emerald-200'
-                    : 'bg-amber-50 text-amber-800 border-amber-200'
-                }`}>
-                  <div className="flex items-center gap-1.5 font-medium">
-                    <Percent className="w-3.5 h-3.5 flex-shrink-0" />
-                    <span>Fator R Apurado: <strong>{result.factorRPercentage.toFixed(1)}%</strong></span>
-                  </div>
-                  <span className="font-bold text-[11px] px-2 py-0.5 rounded-md bg-white/80">
-                    {result.factorREligible ? 'Anexo III (A partir de 6%)' : 'Anexo V (A partir de 15,5%)'}
-                  </span>
-                </div>
-              )}
-            </div>
-
-            {/* Number of Employees */}
-            <div>
-              <label className="block text-xs font-bold uppercase text-slate-700 tracking-wider mb-2">
-                4. Quantidade de Colaboradores / Sócios
-              </label>
-              <div className="flex items-center gap-1.5 sm:gap-2">
-                {[1, 2, 4, 8, 15, 25].map((num) => (
-                  <button
-                    key={num}
-                    type="button"
-                    onClick={() => setEmployees(num)}
-                    className={`flex-1 py-2 sm:py-2.5 text-xs sm:text-sm font-bold rounded-xl transition-all cursor-pointer active:scale-95 ${
-                      employees === num
-                        ? 'bg-[#0B63CE] text-white shadow-xs'
-                        : 'bg-white border border-slate-200 hover:bg-slate-50 text-slate-700'
-                    }`}
-                  >
-                    {num === 25 ? '25+' : num}
-                  </button>
-                ))}
-              </div>
-            </div>
-
+            {activity !== 'outra' && <>
+              <MoneyField id="sim-revenue" label="Faturamento do mês" value={month} onChange={setMonth} />
+              <input className="sim-slider" type="range" min={1000} max={400000} step={1000}
+                value={Number.isFinite(revenue) ? revenue : 1000} aria-label="Ajustar faturamento do mês"
+                onChange={event => setMonth(event.currentTarget.value)} />
+              <MoneyField id="sim-rbt12" label="Receita dos 12 meses anteriores" value={year} onChange={setYear} />
+              {activity === 'servicos' && <MoneyField id="sim-payroll" label="Folha dos 12 meses anteriores" value={payroll} onChange={setPayroll}
+                hint="Some salários, pró-labore, FGTS e contribuição patronal efetivamente recolhida no período." />}
+              <details className="sim-breakdown sim-adjustments">
+                <summary>Completar o Lucro Presumido <ChevronDown size={16} aria-hidden="true" /></summary>
+                <p>Informe os valores mensais previstos nesse regime. Preencha com zero quando não houver recolhimento.</p>
+                <MoneyField id="sim-local" label={localLabel} value={local} onChange={setLocal} placeholder="A informar" />
+                <MoneyField id="sim-charges" label="Encargos patronais sobre a folha" value={charges} onChange={setCharges} placeholder="A informar"
+                  hint="Inclua CPP, RAT e terceiros quando devidos. Exclua FGTS e valores descontados dos trabalhadores." />
+                <MoneyField id="sim-base" label="Base de PIS e Cofins" value={taxable} onChange={setTaxable}
+                  placeholder={month} hint="Usamos o faturamento do mês. Ajuste a base se houver exclusões, como o ICMS destacado." />
+              </details>
+            </>}
           </div>
 
-          {/* Results Output Column */}
-          <div className="lg:col-span-5 bg-slate-50 p-4 sm:p-6 rounded-3xl border border-slate-200 flex flex-col justify-between space-y-4">
-            
-            <div className="space-y-4">
-              
-              {/* Header Badge */}
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-1.5 text-xs font-bold uppercase text-[#0B63CE] tracking-wider">
-                  <Sparkles className="w-4 h-4" />
-                  <span>Diagnóstico Fiscal Oficial</span>
+          <div className="sim-results">
+            <h3>Estimativa mensal</h3>
+            {'das' in result ? <>
+              <dl className="sim-comparison">
+                <div><dt>Simples Nacional</dt><dd>{money.format(result.das)}</dd><dd>DAS · Anexo {result.annex} · {rate.format(result.effectiveRate)}</dd></div>
+                <div><dt>Lucro Presumido</dt><dd>{money.format(result.presumedTotal ?? result.federal)}</dd>
+                  <dd>{result.presumedTotal === null ? 'IRPJ, CSLL, PIS e Cofins' : 'Total do cenário'}</dd></div>
+              </dl>
+              <p className="sim-reading" role="status">
+                {result.presumedTotal === null
+                  ? `Para comparar os totais, informe ${localLabel} e encargos patronais em “Completar o Lucro Presumido”.`
+                  : result.presumedTotal === result.das
+                    ? 'Os dois regimes têm o mesmo total neste cenário.'
+                    : <>Com os valores informados, o <strong>{result.das < result.presumedTotal ? 'Simples Nacional' : 'Lucro Presumido'}</strong> fica <strong>{money.format(Math.abs(result.das - result.presumedTotal))}</strong> abaixo do outro regime neste mês.</>}
+              </p>
+              <details className="sim-breakdown">
+                <summary>Detalhar os tributos <ChevronDown size={16} aria-hidden="true" /></summary>
+                <p>O DAS usa a faixa {result.bracket} do Anexo {result.annex}.
+                  {result.factorR !== null && ` O Fator R divide a folha pela receita dos 12 meses anteriores. Neste cenário, a folha ${result.annex === 'III' ? 'atinge' : 'fica abaixo de'} 28% da receita.`}</p>
+                <div className="sim-table-wrap">
+                  <table><caption>Lucro Presumido por tributo</caption><tbody>
+                    {breakdown.map(([label, value]) => <tr key={label}><th scope="row">{label}</th><td>{value === null ? 'A informar' : money.format(value)}</td></tr>)}
+                  </tbody></table>
                 </div>
-                <div className="flex items-center gap-1 text-[11px] font-bold text-slate-500 bg-white px-2.5 py-1 rounded-full border border-slate-200">
-                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
-                  <span>Receita Federal</span>
-                </div>
-              </div>
-
-              {/* Recommendation Box */}
-              <div className="p-4 rounded-2xl bg-white border border-slate-200 shadow-sm space-y-1">
-                <span className="text-xs text-slate-500 font-semibold uppercase tracking-wider block">
-                  Regime Mais Vantajoso:
-                </span>
-                <h3 className="text-xl sm:text-2xl font-black text-slate-900 leading-tight">
-                  {result.recommendedRegime}
-                </h3>
-                <span className="text-xs text-[#0B63CE] font-bold block pt-0.5">
-                  {result.recommendedRegime === 'Simples Nacional' ? result.simplesAnexo : 'Tributação com Base Presumida'}
-                </span>
-              </div>
-
-              {/* Direct Comparison Cards */}
-              <div className="grid grid-cols-2 gap-2.5">
-                
-                {/* Simples Nacional */}
-                <div className={`p-3.5 rounded-2xl border transition-all ${
-                  result.recommendedRegime === 'Simples Nacional'
-                    ? 'bg-blue-50/70 border-[#0B63CE]/40 ring-1 ring-[#0B63CE]/20'
-                    : 'bg-white border-slate-200'
-                }`}>
-                  <span className="text-[11px] font-bold text-slate-500 block">Simples Nacional</span>
-                  <span className="text-base sm:text-lg font-black text-slate-900 mt-1 block">
-                    R$ {Math.round(result.simplesTotal).toLocaleString('pt-BR')}
-                    <span className="text-xs font-normal text-slate-500">/mês</span>
-                  </span>
-                  <span className="text-[11px] font-bold text-[#0B63CE] block mt-0.5">
-                    Alíquota: {(result.simplesEffectiveRate * 100).toFixed(2)}%
-                  </span>
-                  <span className="text-[10px] text-slate-500 block mt-1">
-                    INSS Patronal: R$ 0 (incluso no DAS)
-                  </span>
-                </div>
-
-                {/* Lucro Presumido */}
-                <div className={`p-3.5 rounded-2xl border transition-all ${
-                  result.recommendedRegime === 'Lucro Presumido'
-                    ? 'bg-blue-50/70 border-[#0B63CE]/40 ring-1 ring-[#0B63CE]/20'
-                    : 'bg-white border-slate-200'
-                }`}>
-                  <span className="text-[11px] font-bold text-slate-500 block">Lucro Presumido</span>
-                  <span className="text-base sm:text-lg font-black text-slate-900 mt-1 block">
-                    R$ {Math.round(result.lucroPresumidoTotal).toLocaleString('pt-BR')}
-                    <span className="text-xs font-normal text-slate-500">/mês</span>
-                  </span>
-                  <span className="text-[11px] font-bold text-slate-600 block mt-0.5">
-                    Alíquota: {(result.lucroPresumidoEffectiveRate * 100).toFixed(2)}%
-                  </span>
-                  <span className="text-[10px] text-slate-500 block mt-1">
-                    INSS Folha: R$ {Math.round(result.presumidoInssPatronal).toLocaleString('pt-BR')}
-                  </span>
-                </div>
-
-              </div>
-
-              {/* Annual Savings Highlight */}
-              {result.annualSavings > 0 && (
-                <div className="p-3.5 sm:p-4 rounded-2xl bg-emerald-50 border border-emerald-200/80 flex items-center justify-between">
-                  <div>
-                    <span className="text-[11px] font-bold text-emerald-800 uppercase tracking-wider block">
-                      Economia Tributária Estimada:
-                    </span>
-                    <span className="text-xl sm:text-2xl font-black text-emerald-700 block mt-0.5">
-                      R$ {Math.round(result.annualSavings).toLocaleString('pt-BR')}
-                      <span className="text-xs font-bold text-emerald-600"> / ano</span>
-                    </span>
-                    <span className="text-xs text-emerald-700/90 font-medium block mt-0.5">
-                      R$ {Math.round(result.monthlySavings).toLocaleString('pt-BR')} por mês economizados
-                    </span>
-                  </div>
-                  <TrendingDown className="w-8 h-8 text-emerald-600 flex-shrink-0" />
-                </div>
-              )}
-
-              {/* Insights List */}
-              <div className="space-y-2 text-xs text-slate-600">
-                {result.insights.map((insight, idx) => (
-                  <div key={idx} className="flex items-start gap-2 bg-white/70 p-2.5 rounded-xl border border-slate-200/60">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-[#0B63CE] flex-shrink-0 mt-0.5" />
-                    <span className="leading-snug text-slate-700">{insight}</span>
-                  </div>
-                ))}
-              </div>
-
-              {/* Toggle Detailed Breakdown Table */}
-              <div>
-                <button
-                  type="button"
-                  onClick={() => setShowDetailedBreakdown(!showDetailedBreakdown)}
-                  className="w-full py-2.5 px-3 bg-white hover:bg-slate-100 text-slate-700 font-bold text-xs rounded-xl border border-slate-200 transition-all flex items-center justify-center gap-1.5 cursor-pointer"
-                >
-                  <FileSpreadsheet className="w-3.5 h-3.5 text-[#0B63CE]" />
-                  <span>{showDetailedBreakdown ? 'Ocultar Detalhamento Tributo a Tributo' : 'Ver Detalhamento Tributo a Tributo'}</span>
-                  {showDetailedBreakdown ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
-                </button>
-
-                {/* Detailed Table */}
-                {showDetailedBreakdown && (
-                  <div className="mt-3 p-3 rounded-2xl bg-white border border-slate-200 text-xs space-y-2 animate-in fade-in duration-200">
-                    <div className="font-bold text-slate-800 border-b pb-1 flex justify-between text-[11px] uppercase tracking-wider text-slate-500">
-                      <span>Tributo</span>
-                      <span>Simples</span>
-                      <span>Lucro Presumido</span>
-                    </div>
-
-                    <div className="flex justify-between py-1 border-b border-slate-100 text-slate-600">
-                      <span>PIS / COFINS (3,65%)</span>
-                      <span className="font-semibold text-[#0B63CE]">No DAS</span>
-                      <span className="font-semibold text-slate-800">R$ {Math.round(result.presumidoPis + result.presumidoCofins).toLocaleString('pt-BR')}</span>
-                    </div>
-
-                    <div className="flex justify-between py-1 border-b border-slate-100 text-slate-600">
-                      <span>IRPJ (15% + Adicional)</span>
-                      <span className="font-semibold text-[#0B63CE]">No DAS</span>
-                      <span className="font-semibold text-slate-800">R$ {Math.round(result.presumidoIrpjTotal).toLocaleString('pt-BR')}</span>
-                    </div>
-
-                    <div className="flex justify-between py-1 border-b border-slate-100 text-slate-600">
-                      <span>CSLL (9% sobre base)</span>
-                      <span className="font-semibold text-[#0B63CE]">No DAS</span>
-                      <span className="font-semibold text-slate-800">R$ {Math.round(result.presumidoCsll).toLocaleString('pt-BR')}</span>
-                    </div>
-
-                    <div className="flex justify-between py-1 border-b border-slate-100 text-slate-600">
-                      <span>{result.presumidoLocalTaxLabel}</span>
-                      <span className="font-semibold text-[#0B63CE]">No DAS</span>
-                      <span className="font-semibold text-slate-800">R$ {Math.round(result.presumidoLocalTax).toLocaleString('pt-BR')}</span>
-                    </div>
-
-                    <div className="flex justify-between py-1 border-b border-slate-100 text-slate-600">
-                      <span className="font-medium text-slate-700">INSS Patronal (27,8% Folha)</span>
-                      <span className="font-bold text-emerald-600">R$ 0,00 (Isento)</span>
-                      <span className="font-semibold text-slate-800">R$ {Math.round(result.presumidoInssPatronal).toLocaleString('pt-BR')}</span>
-                    </div>
-
-                    <div className="flex justify-between pt-1 font-black text-slate-900 text-xs">
-                      <span>Total Mensal Estimado:</span>
-                      <span className="text-[#0B63CE]">R$ {Math.round(result.simplesTotal).toLocaleString('pt-BR')}</span>
-                      <span>R$ {Math.round(result.lucroPresumidoTotal).toLocaleString('pt-BR')}</span>
-                    </div>
-                  </div>
-                )}
-              </div>
-
-            </div>
-
-            {/* CTA Button */}
-            <div className="pt-2">
-              <button
-                onClick={() => onOpenQuoteModal(`Diagnóstico Tributário: ${result.recommendedRegime} (Faturamento R$ ${revenue.toLocaleString('pt-BR')})`)}
-                className="w-full py-3.5 px-4 bg-[#0B63CE] hover:bg-[#0952ae] text-white font-bold text-xs sm:text-sm rounded-2xl shadow-md transition-all active:scale-98 flex items-center justify-center gap-2 cursor-pointer"
-              >
-                <span>Solicitar Planejamento com Contador</span>
-                <ArrowRight className="w-4 h-4" />
-              </button>
-            </div>
-
+              </details>
+            </> : <p className="sim-reading" role="status">{result.issue}</p>}
+            <details className="sim-breakdown">
+              <summary>Premissas e fontes <ChevronDown size={16} aria-hidden="true" /></summary>
+              <p>Cenário de 2026 para empresa com pelo menos 13 meses de atividade, uma única atividade no mercado interno e ICMS ou ISS dentro do DAS. A simulação abrange receita de até R$ 3,6 milhões em 12 meses e até R$ 400 mil no mês.</p>
+              <p>No Presumido, projetamos três meses iguais no trimestre. A base de IRPJ e CSLL é de 32% para os serviços simulados. Para comércio e indústria, usamos 8% no IRPJ e 12% na CSLL. O adicional de IRPJ incide sobre a base trimestral acima de R$ 60 mil.</p>
+              <p>Consideramos PIS e Cofins cumulativos, tributação comum, sem benefícios, substituição tributária, receitas monofásicas ou outras receitas. O cenário pressupõe a dispensa de recolhimento de IBS e CBS no ano de teste de 2026.</p>
+              <ul className="sim-sources">
+                <li><a href="https://www.planalto.gov.br/ccivil_03/leis/lcp/lcp123.htm" target="_blank" rel="noopener noreferrer">Anexos do Simples Nacional</a></li>
+                <li><a href="https://normas.receita.fazenda.gov.br/sijut2consulta/link.action?idAto=92278" target="_blank" rel="noopener noreferrer">Regras de apuração do Fator R</a></li>
+                <li><a href="https://www.planalto.gov.br/ccivil_03/leis/l9249.htm" target="_blank" rel="noopener noreferrer">Bases de cálculo do Lucro Presumido</a></li>
+                <li><a href="https://www.gov.br/receitafederal/pt-br/assuntos/noticias/2025/dezembro/comunicado-conjunto" target="_blank" rel="noopener noreferrer">Orientações da Receita para 2026</a></li>
+                <li><a href="https://github.com/ReceitaFederal/calculadora-rtc-simples-nacional" target="_blank" rel="noopener noreferrer">GitHub da Receita Federal · IBS e CBS por operação</a></li>
+              </ul>
+            </details>
+            <button className="sim-consult" type="button" onClick={() => onOpenQuoteModal(
+              'das' in result && activity !== 'outra' ? `Simulação tributária de 2026 — ${segments[activity]}, faturamento mensal de ${money.format(revenue)}` : 'Análise de enquadramento tributário'
+            )}>Conversar sobre a simulação</button>
           </div>
-
         </div>
-
       </div>
     </section>
   );
-};
+}
